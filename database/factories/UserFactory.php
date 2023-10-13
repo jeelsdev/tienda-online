@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -16,10 +18,15 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'surnames' => $this->faker->lastName(),
+            'birthday' => $this->faker->date(),
+            'phone' => $this->faker->e164PhoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'address_id'=>Address::query()->inRandomOrder()->first()->id,
+            'state_id'=>State::query()->inRandomOrder()->first()->id,
         ];
     }
 

@@ -9,12 +9,19 @@ class Store extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'ruc',
+        'description',
+        'status_id'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
 
     public function products(){
-        return $this->hasMany(State::class);
+        return $this->hasMany(Status::class);
     }
 
     public function transactions(){

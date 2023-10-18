@@ -52,16 +52,16 @@ class User extends Authenticatable
     ];
 
 
-    public function state(){
-        return $this->belongsTo(State::class);
+    public function status(){
+        return $this->belongsTo(Status::class);
     }
 
     public function messages(){
         return $this->hasMany(Message::class);
     }
 
-    public function requests(){
-        return $this->hasMany(Request::class);
+    public function unlocks(){
+        return $this->hasMany(Unlock::class);
     }
 
     public function store(){

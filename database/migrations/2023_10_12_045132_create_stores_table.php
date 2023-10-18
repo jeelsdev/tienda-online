@@ -15,12 +15,12 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name',100);
-            $table->string('ruc',11);
+            $table->string('name',100)->unique();
+            $table->string('ruc',11)->unique();
             $table->string('logo');
             $table->text('description');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('state_id')->constrained();
+            $table->foreignId('status_id')->constrained();
             $table->timestamps();
         });
     }

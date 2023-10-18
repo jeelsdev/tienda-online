@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('amount');
             $table->string('image');
             $table->text('description');
-            $table->foreignId('state_id')->constrained();
+            $table->foreignId('status_id')->constrained();
             $table->foreignId('store_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->timestamps();

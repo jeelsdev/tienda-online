@@ -14,9 +14,17 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('js/app.js') }}"></script>
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
-        </div>
+    <body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
+        <main class="mt-0 transition-all duration-200 ease-in-out">
+            <section>
+              <div class="relative flex items-center min-h-screen p-0 overflow-hidden bg-center bg-cover">
+                <div class="container z-1">
+                  <div class="flex flex-wrap -mx-3">
+                    {{ $slot }}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
     </body>
 </html>

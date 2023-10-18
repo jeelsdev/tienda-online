@@ -9,8 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function state(){
-        return $this->belongsTo(State::class);
+    public function status(){
+        return $this->belongsTo(Status::class);
     }
 
     public function category(){

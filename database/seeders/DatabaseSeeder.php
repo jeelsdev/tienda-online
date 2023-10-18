@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Message;
-use App\Models\Request;
-use App\Models\State;
+use App\Models\Status;
+use App\Models\Unlock;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        State::create(['name'=>'activo']);
-        State::create(['name'=>'inactivo']);
-        State::create(['name'=>'bloqueado']);
-        State::create(['name'=>'cerrado']);
+        Status::create(['name'=>'activo']);
+        Status::create(['name'=>'inactivo']);
+        Status::create(['name'=>'bloqueado']);
+        Status::create(['name'=>'cerrado']);
 
 
         $this->call(AddressSeeder::class);
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             'birthday'=>'2000-01-01', 
             'phone'=>'987123456', 
             'address_id'=>1, 
-            'state_id'=>1, 
+            'status_id'=>1, 
             'email'=>'admin@yopmail.com'
         ]);
 
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
 
         Message::factory(10)->create();
 
-        Request::factory(10)->create();
+        Unlock::factory(10)->create();
 
         $this->call(StoreSeeder::class);
 

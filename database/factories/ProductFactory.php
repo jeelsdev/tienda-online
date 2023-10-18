@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'price'=>$this->faker->randomFloat(3, 10, 500),
             'amount'=>$this->faker->randomNumber(2),
             'image'=>$this->faker->imageUrl(640, 480, 'product'),
-            'state_id'=>$this->faker->randomElement([1, 2]),
+            'status_id'=>$this->faker->randomElement([1, 2]),
             'store_id'=>Store::query()->inRandomOrder()->first()->id,
             'category_id'=>Category::query()->inRandomOrder()->first()->id,
         ];

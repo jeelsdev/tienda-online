@@ -124,11 +124,14 @@ class StoreController extends Controller
 
         $stores = Store::with('user')
             ->where('created_at','>', now()->subMonth())
-            ->where('status_id', '=', 1)
-            ->orWhere('status_id', '=', 2)
-            ->name($request->search)
-            ->orderBy('created_at')
+            ->when(request('status'), function($query){
+                $query->where('status_id', request('status'));
+            })->when(request('search'), function($query){
+                $query->where('name', 'LIKE', '%'.request('search').'%')
+                ->orWhere('ruc', 'LIKE', '%'.request('search').'%');
+            })->orderBy('created_at')
             ->paginate(10);
+
         return view('admin.new-stores', compact('stores'));
     }
 

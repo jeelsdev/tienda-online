@@ -11,17 +11,19 @@
                                     Nuevas tiendas
                                 </h3>
                                 <div class="pt-5 relative mx-auto text-gray-600">
-                                    <div class="flex justify-between">
-                                        <form method="GET" action="{{ route('admin.stores.news') }}" class="flex">
-                                            <x-input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar por nombre o ruc"></x-input>
-                                            <x-button class="ml-5 h-10">Buscar</x-button>
+                                        <form method="GET" action="#" id="search-form" class="flex justify-between">
+                                            <div class="flex">
+                                                <x-input type="text" name="search" id="search-name" value="{{ request('search') }}" placeholder="Buscar por nombre o ruc"></x-input>
+                                                <x-button class="ml-5 h-10">Buscar</x-button>
+                                            </div>
+                                            <div class="w-1/5">
+                                                <x-select id="search-status" name="status" class=" w-full">
+                                                    <option {{ request('status') == '' ? 'selected':'' }} value="" >Todos</option>
+                                                    <option {{ request('status') == 1 ? 'selected':''  }} value="1">Activo</option>
+                                                    <option {{ request('status') == 2 ? 'selected':''  }} value="2">Inactivo</option>
+                                                </x-select>
+                                            </div>
                                         </form>
-                                        <x-select class=" w-1/5">
-                                            <option selected disabled>Filtrar por estado</option>
-                                            <option value="1">Verificado</option>
-                                            <option value="2">No verificado</option>
-                                        </x-select>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,13 +96,13 @@
                                             @if ($store->status_id == 1)
                                                 <div
                                                     class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
-                                                    <h2 class="text-sm font-normal">Verificado</h2>
+                                                    <h2 class="text-sm font-normal">Activo</h2>
                                                 </div>
                                             @endif
                                             @if ($store->status_id == 2)
                                                 <div
                                                     class="inline-flex items-center px-3 py-1 text-orange-500 rounded-full gap-x-2 bg-orange-100/60">
-                                                    <h2 class="text-sm font-normal">No verificado</h2>
+                                                    <h2 class="text-sm font-normal">Inactivo</h2>
                                                 </div>
                                             @endif
                                         </td>
@@ -130,4 +132,20 @@
             </div>
         </div>
     </div>
+    <script>
+        const form = document.getElementById('search-form');
+        const searchName = document.getElementById('search-name');
+        const searchStatus = document.getElementById('search-status');
+        
+        searchName.addEventListener('keypress', function(e){
+            if(e.key == "Enter"){
+                form.submit();
+                console.log('enviado');
+            }
+        });
+        searchStatus.addEventListener('change', function(e){
+                form.submit();
+                console.log('enviado');
+        })
+    </script>
 </x-app-layout>

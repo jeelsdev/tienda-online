@@ -28,7 +28,7 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
-  <script type="text/javascript">
+  {{-- <script type="text/javascript">
     /* Make dynamic date appear */
     (function () {
       if (document.getElementById("get-current-year")) {
@@ -259,6 +259,6 @@
       ctx = document.getElementById("bar-chart").getContext("2d");
       window.myBar = new Chart(ctx, config);
     })();
-  </script>
+  </script> --}}
     </body>
 </html>

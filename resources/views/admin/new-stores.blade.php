@@ -3,28 +3,26 @@
         <div class="flex flex-wrap">
             <div class="w-full mb-12 px-4 mt-24">
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
-                    
+
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <div class="flex flex-wrap items-center">
                             <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                                 <h3 class="font-semibold text-lg text-blueGray-700">
-                                    Card Tables
+                                    Nuevas tiendas
                                 </h3>
                                 <div class="pt-5 relative mx-auto text-gray-600">
                                     <div class="flex justify-between">
-
-                                        <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-2/6"
-                                          type="search" name="search" placeholder="Buscar por nombre o ruc">
-                                            <select id="default" class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/5 p-2.5">
-                                                <option selected>Filtrar por estado</option>
-                                                <option value="US">United statuss</option>
-                                                <option value="CA">Canada</option>
-                                                <option value="FR">France</option>
-                                                <option value="DE">Germany</option>
-                                            </select>
-                                        
+                                        <form method="GET" action="{{ route('admin.stores.news') }}" class="flex">
+                                            <x-input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar por nombre o ruc"></x-input>
+                                            <x-button class="ml-5 h-10">Buscar</x-button>
+                                        </form>
+                                        <x-select class=" w-1/5">
+                                            <option selected disabled>Filtrar por estado</option>
+                                            <option value="1">Verificado</option>
+                                            <option value="2">No verificado</option>
+                                        </x-select>
                                     </div>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,12 +72,12 @@
                                         </th>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                            
+
                                             <span class=" font-bold text-blueGray-600">
                                                 {{ $store->name }}
                                             </span>
                                         </td>
-                                        
+
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             {{ $store->ruc }}
@@ -88,35 +86,38 @@
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <span class="mr-2">{{ $store->user->name }}</span>
-                                               
+
                                             </div>
                                         </td>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             @if ($store->status_id == 1)
-                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
-                                                <h2 class="text-sm font-normal">Verificado</h2>
-                                            </div>
-                                                
+                                                <div
+                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
+                                                    <h2 class="text-sm font-normal">Verificado</h2>
+                                                </div>
                                             @endif
                                             @if ($store->status_id == 2)
-                                            <div class="inline-flex items-center px-3 py-1 text-orange-500 rounded-full gap-x-2 bg-orange-100/60">
-                                                <h2 class="text-sm font-normal">No verificado</h2>
-                                            </div>
-                                            @endif                                        </td>
-                                        
+                                                <div
+                                                    class="inline-flex items-center px-3 py-1 text-orange-500 rounded-full gap-x-2 bg-orange-100/60">
+                                                    <h2 class="text-sm font-normal">No verificado</h2>
+                                                </div>
+                                            @endif
+                                        </td>
+
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
 
                                             {{ $store->created_at->diffForHumans() }}
-                                            
+
                                         </td>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                            <a href="{{ route('admin.store.validate', ['store'=>$store->id]) }}" class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                            <a href="{{ route('admin.store.validate', ['store' => $store->id]) }}"
+                                                class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                                 ver mas
                                             </a>
-                                            
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -125,6 +126,7 @@
                         </table>
                     </div>
                 </div>
+                {{ $stores->links() }}
             </div>
         </div>
     </div>

@@ -120,14 +120,15 @@ class StoreController extends Controller
         //
     }
 
-    public function getAllNews(){
+    public function getAllNews(Request $request){
+
         $stores = Store::with('user')
             ->where('created_at','>', now()->subMonth())
-            ->where('created_at', '<', now())
             ->where('status_id', '=', 1)
             ->orWhere('status_id', '=', 2)
+            ->name($request->search)
             ->orderBy('created_at')
-            ->get();
+            ->paginate(10);
         return view('admin.new-stores', compact('stores'));
     }
 

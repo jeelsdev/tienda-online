@@ -27,4 +27,17 @@ class Store extends Model
     public function transactions(){
         return $this->hasMany(Transaction::class);
     }
+
+    public function scopeName($query, $name){
+        if($name){
+            return $query->where('name', 'LIKE', "%$name%")
+                ->orWhere('ruc', 'LIKE', "%$name%");
+        }
+    }
+
+    public function scopeRuc($query, $ruc){
+        if($ruc){
+            return $query->where('ruc', 'LIKE', "%$ruc%");
+        }
+    }
 }

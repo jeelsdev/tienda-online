@@ -21,7 +21,7 @@ class StoreFactory extends Factory
             'description'=>$this->faker->text(),
             'ruc'=>$this->faker->biasedNumberBetween(30000000, 1000000000),
             'user_id'=>User::role('staff')->inRandomOrder()->first()->id,
-            'status_id'=>Status::query()->inRandomOrder()->first()->id,
+            'status_id'=>Status::whereIn('id', [1,2])->inRandomOrder()->first()->id,
         ];
     }
 }

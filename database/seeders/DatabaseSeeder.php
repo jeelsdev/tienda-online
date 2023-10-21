@@ -19,32 +19,36 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // creation of status
         Status::create(['name'=>'activo']);
         Status::create(['name'=>'inactivo']);
         Status::create(['name'=>'bloqueado']);
         Status::create(['name'=>'cerrado']);
 
-
+        
+        // directions
         $this->call(AddressSeeder::class);
 
+        // roles
         Role::create(['name'=>'admin']);
         Role::create(['name'=>'staff']);
         Role::create(['name'=>'client']);
 
         $userAdmin = User::factory()->create([
-            'name'=>'Admin', 
-            'surnames'=>'admin', 
-            'birthday'=>'2000-01-01', 
-            'phone'=>'987123456', 
-            'address_id'=>1, 
-            'status_id'=>1, 
-            'email'=>'admin@yopmail.com'
+            'name'=>'Admin',
+            'surnames'=>'admin',
+            'birthday'=>'2000-01-01',
+            'phone'=>'987123456',
+            'address_id'=>1,
+            'status_id'=>1,
+            'email'=>'admin@yopmail.com',
+            'profile'=>'https://via.placeholder.com/160x260.png/000033?text=profile+admin'
         ]);
 
         $userAdmin->assignRole('admin');
 
-        $usersSeller = User::factory(3)->create();
-        foreach ($usersSeller as $user) {
+        $userStaff = User::factory(10)->create();
+        foreach ($userStaff as $user) {
             $user->assignRole('staff');
         }
 

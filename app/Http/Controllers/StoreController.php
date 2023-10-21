@@ -79,7 +79,7 @@ class StoreController extends Controller
     public function edit(Store $store)
     {
 
-        $statuses = Status::all();
+        $statuses = Status::whereIn('id', [1, 2])->get();
         return view('admin.edit-store', compact(['store', 'statuses']));
     }
 

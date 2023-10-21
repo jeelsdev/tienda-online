@@ -27,13 +27,20 @@
                                             Nombre
                                         </label>
                                         <x-input type="text" name="name" value="{{ $store->name }}" ></x-input>
+                                        @error('name')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="relative w-full mb-3">
+                                    <div class="relative w-full my-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="grid-password">
                                             RUC
                                         </label>
                                         <x-input type="text" name="ruc" value="{{ $store->ruc }}" ></x-input>
+                                        @error('ruc')
+                                             <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
+
                                     </div>
                                     <div class="relative w-full">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -44,6 +51,10 @@
                                         <x-textarea name="description">
                                             {{ $store->description }}
                                         </x-textarea>
+                                        @error('description')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
+
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -70,18 +81,6 @@
                                                             <h2 class="text-sm font-normal">Inactivo</h2>
                                                         </div>
                                                     @endif
-                                                    
-                                                    @if ($store->status_id == 3)
-                                                    <div class="inline-flex items-center px-3 py-1 text-yellow-500 rounded-full gap-x-2 bg-yellow-100/60">
-                                                        <h2 class="text-sm font-normal">Bloqueado</h2>
-                                                    </div>
-                                                    @endif
-                                                    @if ($store->status_id == 4)
-                                                    <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60">
-                                                        <h2 class="text-sm font-normal">Cerrado</h2>
-                                                    </div>
-                                                    @endif
-                                                    
                                                 </div>
 
                                             </div>
@@ -147,6 +146,10 @@
                                                 <option value="{{ $status->id }}" {{ $status->id == $store->status_id ? 'selected':'' }}>{{ $status->name }}</option>
                                             @endforeach
                                         </x-select>
+                                        @error('status')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
+
                                     </div>
                                 </div>
                             </div>

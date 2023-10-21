@@ -11,7 +11,7 @@
                             <h6 class="text-blueGray-700 text-xl font-bold">
                             </h6>
                             <div>
-                                <x-link-button href="{{ route('admin.staff.show', ['id'=>$store->id]) }}">
+                                <x-link-button href="{{ route('admin.staff.show', ['id'=>$store->user_id]) }}">
                                     Ver vendedor
                                 </x-link-button>
                             </div>
@@ -46,17 +46,6 @@
                                                             <h2 class="text-sm font-normal">Inactivo</h2>
                                                         </div>
                                                     @endif
-                                                    @if ($store->status_id == 3)
-                                                    <div class="inline-flex items-center px-3 py-1 text-yellow-500 rounded-full gap-x-2 bg-yellow-100/60">
-                                                        <h2 class="text-sm font-normal">Bloqueado</h2>
-                                                    </div>
-                                                    @endif
-                                                    @if ($store->status_id == 4)
-                                                    <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60">
-                                                        <h2 class="text-sm font-normal">Cerrado</h2>
-                                                    </div>
-                                                    @endif
-                                                    
                                                 </div>
 
                                             </div>

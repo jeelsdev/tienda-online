@@ -11,20 +11,20 @@
                                     Tiendas
                                 </h3>
                                 <div class="pt-5 relative mx-auto text-gray-600">
-                                    <div class="flex justify-between">
-
-                                        <x-input type="search" name="search" placeholder="Buscar por nombre o ruc"></x-input>
-
-                                        <x-select class="md:w-1/5 ">
-                                            <option selected>Filtrar por estado</option>
-                                            <option value="US">United statuss</option>
-                                            <option value="CA">Canada</option>
-                                            <option value="FR">France</option>
-                                            <option value="DE">Germany</option>
-                                        </x-select>
-                                        
-                                    </div>
-                                  </div>
+                                    <form method="GET" action="#" id="search-form" class="flex justify-between">
+                                        <div class="flex">
+                                            <x-input type="text" name="search" id="search-name" value="{{ request('search') }}" placeholder="Buscar por nombre o ruc"></x-input>
+                                            <x-button class="ml-5 h-10">Buscar</x-button>
+                                        </div>
+                                        <div class="w-1/5">
+                                            <x-select id="search-status" name="status" class=" w-full">
+                                                <option {{ request('status') == '' ? 'selected':'' }} value="" >Todos</option>
+                                                <option {{ request('status') == 1 ? 'selected':''  }} value="1">Activo</option>
+                                                <option {{ request('status') == 2 ? 'selected':''  }} value="2">Inactivo</option>
+                                            </x-select>
+                                        </div>
+                                    </form>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -44,6 +44,10 @@
                                     <th
                                         class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                         RUC
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        Vendedor
                                     </th>
                                     <th
                                         class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center bg-blueGray-50 text-blueGray-500 border-blueGray-100">
@@ -73,6 +77,10 @@
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             {{ $store->ruc }}
+                                        </td>
+                                        <td
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            {{ $store->user->name }}
                                         </td>
                                         <td
                                             class="border-t-0 px-1 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
@@ -114,4 +122,21 @@
             </div>
         </div>
     </div>
+    <script>
+        const form = document.getElementById('search-form');
+        const searchName = document.getElementById('search-name');
+        const searchStatus = document.getElementById('search-status');
+        
+        searchName.addEventListener('keypress', function(e){
+            if(e.key == "Enter"){
+                form.submit();
+                console.log('enviado');
+            }
+        });
+        searchStatus.addEventListener('change', function(e){
+                form.submit();
+                console.log('enviado');
+        })
+    </script>
+
 </x-app-layout>

@@ -137,8 +137,15 @@ class StoreController extends Controller
 
     public function getAll()
     {
-        $stores = Store::orderBy('status_id')
-            ->get();
+        $stores = Store::with('user')
+            ->where('created_at','>', now()->subMonth())
+            ->when(request('status'), function($query){
+                $query->where('status_id', request('status'));
+            })->when(request('search'), function($query){
+                $query->where('name', 'LIKE', '%'.request('search').'%')
+                ->orWhere('ruc', 'LIKE', '%'.request('search').'%');
+            })->orderBy('status_id')
+            ->paginate(10);
         return view('admin.all-stores', compact('stores'));
     }
 

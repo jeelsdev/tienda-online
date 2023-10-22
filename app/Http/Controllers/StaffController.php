@@ -9,7 +9,9 @@ use App\Models\Department;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\Status;
+use App\Notifications\UserBlocked;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StaffController extends Controller
 {
@@ -90,6 +92,21 @@ class StaffController extends Controller
     public function update(Request $request, User $user)
     {
 
+        $request->validate([
+            'name'=>'required|string|max:30',
+            'surnames'=>'required|string|max:30',
+            'phone'=>'required',
+            'direction'=>'required',
+        ]);
+
+        if($request->status == 3 && $request->status != $user->status_id){
+            $request->validate([
+                'reason'=>'required|string|min:5',
+            ]);
+
+            $user->notify(new UserBlocked($user, $request->reason));
+        }
+
         $address = Address::find($user->address_id);
         $address->update([
             'direction'=>$request->direction,
@@ -97,13 +114,13 @@ class StaffController extends Controller
             'province_id'=>$request->province,
             'district_id'=>$request->district,
         ]);
-
         $user->update([
             'name'=>$request->name,
             'surnames'=>$request->surnames,
             'phone'=>$request->phone,
-            'status_id'=>$request->status,
+            'status_id' =>$request->status
         ]);
+
         return redirect()->route('admin.staffs');
     }
 
@@ -120,8 +137,12 @@ class StaffController extends Controller
 
     public function getAll(){
         $staffs = User::role('staff')
-        ->orderBy('id', 'DESC')
-        ->get();
+            ->when(request('search'), function($query){
+                $query->where(DB::raw('CONCAT(name," ", surnames)'), 'LIKE', "%".request('search')."%");
+            })->when(request('status'), function($query){
+                $query->where('status_id', request('status'));
+            })->orderBy('id', 'DESC')
+            ->get();
 
         return view('admin.staffs', compact('staffs'));
     }

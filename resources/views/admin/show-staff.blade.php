@@ -26,7 +26,7 @@
                                     <div class="flex flex-wrap justify-center">
                                         <div class="w-full  flex justify-center min-h-max" style="height: 15rem">
                                             <div class="relative">
-                                                <img alt="logo" src="{{ $store[0]->logo }}"
+                                                <img alt="logo" src="{{ $user->profile }}"
                                                     class="shadow-xl rounded-full align-middle border-none  max-w-150-px" />
                                             </div>
                                         </div>
@@ -34,24 +34,24 @@
                                             <div class="flex justify-center py-4 lg:pt-4 pt-8">
                                                 <div class="mr-4 p-3 text-center">
                                                     <span class="mr-3 text-gray-500">Estado: </span>
-                                                    @if ($store[0]->status_id == 1)
+                                                    @if ($user->status_id == 1)
                                                         <div
                                                             class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
                                                             <h2 class="text-sm font-normal">Activo</h2>
                                                         </div>
                                                     @endif
-                                                    @if ($store[0]->status_id == 2)
+                                                    @if ($user->status_id == 2)
                                                         <div
                                                             class="inline-flex items-center px-3 py-1 text-orange-500 rounded-full gap-x-2 bg-orange-100/60">
                                                             <h2 class="text-sm font-normal">Inactivo</h2>
                                                         </div>
                                                     @endif
-                                                    @if ($store[0]->status_id == 3)
+                                                    @if ($user->status_id == 3)
                                                     <div class="inline-flex items-center px-3 py-1 text-yellow-500 rounded-full gap-x-2 bg-yellow-100/60">
                                                         <h2 class="text-sm font-normal">Bloqueado</h2>
                                                     </div>
                                                     @endif
-                                                    @if ($store[0]->status_id == 4)
+                                                    @if ($user->status_id == 4)
                                                     <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60">
                                                         <h2 class="text-sm font-normal">Cerrado</h2>
                                                     </div>

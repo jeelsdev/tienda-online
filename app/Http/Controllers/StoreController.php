@@ -9,6 +9,8 @@ use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
+use App\Notifications\StoreActivated;
+use Illuminate\Support\Facades\Notification;
 
 class StoreController extends Controller
 {
@@ -86,7 +88,7 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateStoreRequest  $request
+     * @param  \App\Http\Requests\UpdateStoreRequest $request
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
@@ -106,6 +108,11 @@ class StoreController extends Controller
         $store->update([
             'status_id'=>$request->status,
         ]);
+
+        if($request->status == 1){
+            User::find($store->user_id)->notify(new StoreActivated($store));
+        }
+
         return redirect()->route('admin.stores.news');
     }
 

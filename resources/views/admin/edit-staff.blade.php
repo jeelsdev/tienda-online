@@ -21,7 +21,7 @@
                                     <div class="flex flex-wrap justify-center">
                                         <div class="w-full  flex justify-center min-h-max" style="height: 15rem">
                                             <div class="relative">
-                                                <img alt="logo" src="{{ $store[0]->logo }}"
+                                                <img alt="logo" src="{{ $user->profile }}"
                                                     class="shadow-xl rounded-full align-middle border-none  max-w-150-px" />
                                             </div>
                                         </div>
@@ -73,6 +73,9 @@
                                             Nombre
                                         </label>
                                         <x-input type="text" name="name" value="{{ $user->name }}" ></x-input>
+                                        @error('name')
+                                            <span class="text-red-500">{{ $message  }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -92,6 +95,10 @@
                                         </label>
                                     </div>
                                     <x-input type="text" name="surnames" value="{{ $user->surnames }}" ></x-input>
+                                    @error('surnames')
+                                        <span class="text-red-500">{{ $message  }}</span>
+                                    @enderror
+
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
@@ -100,6 +107,10 @@
                                             Teléfono
                                         </label>
                                         <x-input type="text" name="phone" value="{{ $user->phone }}" ></x-input>
+                                        @error('phone')
+                                            <span class="text-red-500">{{ $message  }}</span>
+                                        @enderror
+
                                     </div>
                                 </div>
                             </div>
@@ -113,6 +124,10 @@
                                 <div class="w-full lg:w-12/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <x-input type="text" name="direction" value="{{ $direction[0]->direction }}" ></x-input>
+                                        @error('direction')
+                                            <span class="text-red-500">{{ $message  }}</span>
+                                        @enderror
+
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-4/12 px-4">
@@ -165,13 +180,25 @@
                             </h6>
                             <div class="flex flex-wrap">
                                 <div class="w-full lg:w-12/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <x-select name="status" class="w-full">
+                                    <div class="relative w-full mb-1">
+                                        <x-select name="status" class="w-full" id="status">
                                             @foreach ($statuses as $status)
-                                                <option value="{{ $status->id }}" {{ $status->id == $store[0]->status_id ? 'selected':'' }}>{{ $status->name }}</option>
+                                                <option value="{{ $status->id }}" {{ $status->id == $user->status_id ? 'selected':'' }}>{{ $status->name }}</option>
                                             @endforeach
-
                                         </x-select>
+                                        @error('reason')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
+                                        <div id="reason-container" class="hidden">
+                                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password">
+                                                Motivo <span class="text-red-500">(*)</span>
+                                            </label>
+
+                                            <x-textarea name="reason">
+
+                                            </x-textarea>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -185,5 +212,16 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            $(document).ready(function(){
+                $('#status').on('change', e =>{
+                    let idStatus = $('#status').val();
+                    if (idStatus == 3) {
+                        $('#reason-container').removeClass('hidden');
+                    }else{
+                        $('#reason-container').addClass('hidden');
+                    }
+                })
+            });
+        </script>
 </x-app-layout>

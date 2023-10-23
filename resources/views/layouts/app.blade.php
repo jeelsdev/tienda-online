@@ -20,7 +20,8 @@
     </head>
     <body class="text-blueGray-700 antialiased">
         <div id="root">
-            @include('layouts.sidebar')
+          @if (auth()->user()->hasRole('admin'))
+            @include('layouts.admin-sidebar')
             <div class="relative md:ml-64 bg-blueGray-50">
                 @include('layouts.navbar')
                 @if (Session::has('message'))
@@ -28,15 +29,34 @@
                 @endif
                 {{ $slot }}
             </div>
+          @endif
+          
+          @if (auth()->user()->hasRole('staff'))
+            @include('layouts.staff-sidebar')
+            <div class="relative md:ml-64 bg-blueGray-50">
+                @include('layouts.navbar')
+                @if (Session::has('message'))
+                  <x-message-flash class="absolute z-50 translate-x-full top-0 w-1/4">{{ Session::get('message') }}</x-message-flash>
+                @endif
+                {{ $slot }}
+            </div>
+          @endif
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+  
+  {{-- Message flash --}}
   <script>
     $(document).ready(function(){
       $('#close-message-flash').on('click', function(){
           $('#message-flash').addClass('hidden');
        });
-
+      
+      // sidebar navigation
+      $('ul .items-center a').click(function(){
+        $('ul .items-center a').removeClass('text-blue-600');
+        $(this).addClass('text-blue-600');
+      });
     });
   </script>
   <script type="text/javascript">

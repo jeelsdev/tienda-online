@@ -14,11 +14,10 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function(){
 
     Route::get('/dashboard', function(){
-        return view('admin.index');
+        return view('dashboard');
     })->name('dashboard');
-    Route::middleware(['role:admin'])->prefix('/admin')->group(function(){
 
-    
+    Route::middleware(['role:admin'])->prefix('/admin')->group(function(){
         Route::prefix('/store')->group(function(){
             Route::get('/news', [StoreController::class, 'getAllNews'])->name('admin.stores.news');
             Route::get('/', [StoreController::class, 'getAll'])->name('admin.stores');

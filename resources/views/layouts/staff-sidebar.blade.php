@@ -67,7 +67,7 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
 
         <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
             <li class="items-center">
-                <a href="#"
+                <a href="{{ route('staff.product.create') }}"
                     class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block hover:text-blue-900">
                     <i class="fas fa-plus text-blueGray-300 mr-2 text-sm"></i>
                     Agregar
@@ -75,7 +75,7 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
             </li>
 
             <li class="items-center">
-                <a href="#"
+                <a href="{{ route('staff.products') }}"
                     class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block hover:text-blue-900">
                     <i class="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>
                     Ver todos

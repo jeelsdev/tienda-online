@@ -7,8 +7,8 @@
                 <div class="items-center flex">
                     <span
                         class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"><img
-                            alt="..." class="w-full rounded-full align-middle border-none shadow-lg"
-                            src="../../assets/img/team-1-800x800.jpg" /></span>
+                            alt="foto de perfil" class="w-10 h-10 rounded-full"
+                            src="{{ auth()->user()->profile }}" /></span>
                 </div>
             </a>
             <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"

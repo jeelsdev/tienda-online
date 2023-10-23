@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UnlockController;
@@ -45,6 +46,17 @@ Route::middleware('auth')->group(function(){
             Route::get('/', [UnlockController::class, 'index'])->name('request.index');
         });
 
+    });
+
+    Route::middleware(['role:staff'])->prefix('/staff')->group(function(){
+        Route::get('/products', [ProductController::class, 'index'])->name('staff.products');
+        Route::prefix('/product')->group(function(){
+            Route::get('/create', [ProductController::class, 'create'])->name('staff.product.create');
+            Route::post('/store', [ProductController::class, 'store'])->name('staff.product.store');
+            Route::get('/{product}/show', [ProductController::class, 'show'])->name('staff.product.show');
+            Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('staff.product.edit');
+            Route::post('/{product}/update', [ProductController::class, 'update'])->name('staff.product.update');
+        });
     });
 });
 

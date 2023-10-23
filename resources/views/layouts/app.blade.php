@@ -23,12 +23,23 @@
             @include('layouts.sidebar')
             <div class="relative md:ml-64 bg-blueGray-50">
                 @include('layouts.navbar')
+                @if (Session::has('message'))
+                  <x-message-flash class="absolute z-50 translate-x-full top-0 w-1/4">{{ Session::get('message') }}</x-message-flash>
+                @endif
                 {{ $slot }}
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
-  {{-- <script type="text/javascript">
+  <script>
+    $(document).ready(function(){
+      $('#close-message-flash').on('click', function(){
+          $('#message-flash').addClass('hidden');
+       });
+
+    });
+  </script>
+  <script type="text/javascript">
     /* Make dynamic date appear */
     (function () {
       if (document.getElementById("get-current-year")) {
@@ -259,6 +270,6 @@
       ctx = document.getElementById("bar-chart").getContext("2d");
       window.myBar = new Chart(ctx, config);
     })();
-  </script> --}}
+  </script>
     </body>
 </html>

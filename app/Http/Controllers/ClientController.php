@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Status;
+use App\Models\Address;
 use Illuminate\Http\Request;
+use App\Notifications\UserBlocked;
+use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
@@ -85,8 +89,37 @@ class ClientController extends Controller
 
     public function getAll(){
         $clients = User::role('client')
-            ->get();
+            ->when(request('search'), function($query){
+                $query->where('name', 'LIKE', "%".request('search')."%")
+                    ->orWhere('surnames', 'LIKE', "%".request('search')."%");
+            })->when(request('status'), function($query){
+                $query->where('status_id', request('status'));
+            })->paginate(10);
 
         return view('admin.clients', compact('clients'));
+    }
+
+    public function showClient(User $client){
+        $direction = Address::with(['department', 'province', 'district'])
+            ->where('id', $client->address_id)
+            ->get();
+        $statuses = Status::whereIn('id', [1,2,3])->get();
+        return view('admin.show-client', compact(['client','direction', 'statuses']));
+    }
+
+    public function updateStatus(Request $request, User $client){
+        if ($request->status == 3) {
+            $request->validate([
+                'reason'=>'required|string|max:1000',
+            ]);
+            $client->notify(new UserBlocked($client, $request->reason));
+        }
+
+        $client->update([
+            'status_id'=>$request->status,
+        ]);
+        Session::flash('message', 'Estado actualizo correctamente.');
+
+        return redirect()->route('admin.clients');
     }
 }

@@ -3,29 +3,30 @@
         <div class="flex flex-wrap">
             <div class="w-full mb-12 px-4 mt-24">
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
-                    
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <div class="flex flex-wrap items-center">
                             <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                                 <h3 class="font-semibold text-lg text-blueGray-700">
-                                    Card Tables
+                                    Clientes
                                 </h3>
-
                                 <div class="pt-5 relative mx-auto text-gray-600">
-                                    <div class="flex justify-between">
+                                    <form method="GET" action="#" id="search-form" class="flex justify-between">
+                                        <div class="flex">
+                                            <x-input type="text" name="search" id="search-name" value="{{ request('search') }}" placeholder="Buscar por nombre o apellido"></x-input>
+                                            <x-button class="ml-5 h-10">Buscar</x-button>
+                                        </div>
+                                        <div class="w-1/5">
+                                            <x-select id="search-status" name="status" class=" w-full">
+                                                <option {{ request('status') == '' ? 'selected':'' }} value="" >Todos</option>
+                                                <option {{ request('status') == 1 ? 'selected':''  }} value="1">Activo</option>
+                                                <option {{ request('status') == 2 ? 'selected':''  }} value="2">Inactivo</option>
+                                                <option {{ request('status') == 3 ? 'selected':''  }} value="3">bloqueado</option>
+                                                <option {{ request('status') == 4 ? 'selected':''  }} value="4">cerrado</option>
+                                            </x-select>
+                                        </div>
+                                    </form>
 
-                                        <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-2/6"
-                                          type="search" name="search" placeholder="Buscar por nombre o ruc">
-                                            <select id="default" class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/5 p-2.5">
-                                                <option selected>Ordenar por</option>
-                                                <option value="US">Nombres</option>
-                                                <option value="CA">Telefono</option>
-                                                <option value="FR">France</option>
-                                                <option value="DE">Germany</option>
-                                            </select>
-                                        
-                                    </div>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -33,7 +34,6 @@
                         <table class="items-center w-full bg-transparent border-collapse">
                             <thead>
                                 <tr>
-
                                     <th
                                         class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                         ID
@@ -120,13 +120,7 @@
                                     </td>
                                     <td
                                     class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap py-4 text-center">
-                                    <a href="#pablo" class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none mr-2">
-                                        Ver
-                                    </a>
-                                    <a href="#pablo" class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                        Editar
-                                    </a>
-                                    
+                                    <x-link href="{{ route('admin.client.show', ['client'=>$client]) }}">Ver más</x-link>
                                 </td>
                             </tr>
                                 @endforeach
@@ -135,7 +129,25 @@
                         </table>
                     </div>
                 </div>
+                {{ $clients->links() }}
             </div>
         </div>
     </div>
+    <script>
+        const form = document.getElementById('search-form');
+        const searchName = document.getElementById('search-name');
+        const searchStatus = document.getElementById('search-status');
+        
+        searchName.addEventListener('keypress', function(e){
+            if(e.key == "Enter"){
+                form.submit();
+                console.log('enviado');
+            }
+        });
+        searchStatus.addEventListener('change', function(e){
+                form.submit();
+                console.log('enviado');
+        })
+    </script>
+
 </x-app-layout>

@@ -49,7 +49,7 @@ class UserBlocked extends Notification
         return (new MailMessage)
                     ->subject('Cuenta deshabilitada')
                     ->greeting("Hola {$this->user->name}")
-                    ->line('Lo sentimos peron has perdido el acceso a nuestra platarforma, ya que has: ')
+                    ->line('Lo sentimos, has perdido el acceso a nuestra platarforma, ya que has ')
                     ->line("{$this->reason}")
                     ->line('Para poder solicitar una reapertura por favor complete este formulario.')
                     ->action('solicitar reapertura', url('/'))

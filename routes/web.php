@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function(){
 
         Route::prefix('/client')->group(function(){
             Route::get('/', [ClientController::class, 'getAll'])->name('admin.clients');
+            Route::get('/{client}', [ClientController::class, 'showClient'])->name('admin.client.show');
+            Route::post('/{client}/update-status', [ClientController::class, 'updateStatus'])->name('admin.client.update.status');
         });
 
         Route::prefix('/resquest')->group(function(){

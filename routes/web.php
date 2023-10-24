@@ -57,6 +57,14 @@ Route::middleware('auth')->group(function(){
             Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('staff.product.edit');
             Route::post('/{product}/update', [ProductController::class, 'update'])->name('staff.product.update');
         });
+
+        Route::prefix('/store')->group(function(){
+            Route::get('/', [StoreController::class, 'index'])->name('staff.store');
+            Route::get('/create', [StoreController::class, 'create'])->name('staff.store.create');
+            Route::post('/', [StoreController::class, 'store'])->name('staff.store.store');
+            Route::get('/{store}/edit', [StoreController::class, 'editByStaff'])->name('staff.store.edit');
+            Route::post('/{store}/update', [StoreController::class, 'updateByStaff'])->name('staff.store.update');
+        });
     });
 });
 

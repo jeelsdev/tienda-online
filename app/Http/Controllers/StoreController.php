@@ -11,6 +11,8 @@ use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 use App\Notifications\StoreActivated;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
@@ -21,7 +23,12 @@ class StoreController extends Controller
      */
     public function index()
     {
-        
+        $store = Store::find(auth()->user()->store->id);
+
+        if($store){
+            return view('staff.store.index', compact('store'));
+        }
+        return redirect()->route('staff.store.create');
     }
 
 
@@ -32,7 +39,10 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        if(Store::find(auth()->user()->store->id)){
+            return redirect()->route('staff.store');
+        }
+        return view('staff.store.create');
     }
 
     /**
@@ -43,7 +53,20 @@ class StoreController extends Controller
      */
     public function store(StoreStoreRequest $request)
     {
-        //
+        $logo = $request->file('logo')->store('/public/images/logos');
+
+        Store::create([
+            'name'=>$request->name,
+            'ruc'=>$request->ruc,
+            'description'=>$request->description,
+            'user_id'=>auth()->user()->id,
+            'status_id'=>2,
+            'logo'=>Storage::url($logo),
+        ]);
+
+        Session::flash('message', 'Cuenta creada exitosamente');
+
+        return redirect()->route('staff.store');
     }
 
     /**
@@ -80,9 +103,12 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-
         $statuses = Status::whereIn('id', [1, 2])->get();
         return view('admin.edit-store', compact(['store', 'statuses']));
+    }
+
+    public function editByStaff(Store $store){
+        return view('staff.store.edit', compact('store'));
     }
 
     /**
@@ -114,6 +140,35 @@ class StoreController extends Controller
         }
 
         return redirect()->route('admin.stores.news');
+    }
+
+    public function updateByStaff(Request $request, Store $store){
+        $request->validate([
+            'name'=>'required|string|max:100',
+            'ruc'=>'required|numeric|digits:11',
+            'description'=>'required|string|max:255',
+            'logo'=>'image|max:1024',
+        ]);
+
+        if($request->logo){
+            $logo = $request->file('logo')->store('/public/images/logos');
+            $store->update([
+                'name'=>$request->name,
+                'ruc'=>$request->ruc,
+                'description'=>$request->description,
+                'logo'=>Storage::url($logo),
+            ]);
+        }else {
+            $store->update([
+                'name'=>$request->name,
+                'ruc'=>$request->ruc,
+                'description'=>$request->description,
+            ]);
+        }
+
+        Session::flash('message', 'Se actulizo correctamente.');
+
+        return redirect()->route('staff.store');
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnlockController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +66,8 @@ Route::middleware('auth')->group(function(){
             Route::get('/{store}/edit', [StoreController::class, 'editByStaff'])->name('staff.store.edit');
             Route::post('/{store}/update', [StoreController::class, 'updateByStaff'])->name('staff.store.update');
         });
+
+        Route::get('/sales', [TransactionController::class, 'getSales'])->name('staff.sales');
     });
 });
 

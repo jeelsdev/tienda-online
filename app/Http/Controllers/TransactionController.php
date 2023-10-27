@@ -83,4 +83,15 @@ class TransactionController extends Controller
     {
         //
     }
+
+    public function getSales(){
+        $transactions = Transaction::with(['product'])
+            ->when(request('from'), function($query){
+                $query->where('created_at', '>=', request('from'));
+            })->when(request('to'),function($query){
+                $query->where('created_at', '<=', request('to'));
+            })
+            ->where('store_id', auth()->user()->store->id)->get();
+        return view('staff.sales',compact(['transactions']));
+    }
 }

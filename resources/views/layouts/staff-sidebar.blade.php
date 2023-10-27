@@ -88,6 +88,24 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         <!-- Heading -->
         <h6
             class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            Ventas
+        </h6>
+        <!-- Navigation -->
+
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            <li class="items-center">
+                <a href="{{ route('staff.sales') }}"
+                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block hover:text-blue-900">
+                    <i class="fas fa-newspaper text-blueGray-300 mr-2 text-sm"></i>
+                    Historial
+                </a>
+            </li>
+        </ul>
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
+        <h6
+            class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
             Tienda
         </h6>
         <!-- Navigation -->

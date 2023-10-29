@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
@@ -70,5 +71,12 @@ Route::middleware('auth')->group(function(){
         Route::get('/sales', [TransactionController::class, 'getSales'])->name('staff.sales');
     });
 });
+
+Route::prefix('/data')->group(function(){
+    Route::get('/categories', [CategoryController::class, 'getAll']);
+    Route::get('/products', [ProductController::class, 'getAll']);
+});
+
+Route::get('/product/{product}', [ProductController::class, 'showProduct']);
 
 require_once __DIR__.'/auth.php';

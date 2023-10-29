@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'birthday' => $this->faker->date(),
             'phone' => $this->faker->e164PhoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
-            'profile'=>$this->faker->imageUrl(160, 260, 'profile'),
+            'profile'=>'/storage/images/profiles/'.$this->faker->image('public/storage/images/profiles', 640, 480, null, false),
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'), // 12345678
             'remember_token' => Str::random(10),

@@ -143,4 +143,17 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function getAll(){
+        $products = Product::with('category')
+            ->when(request('limit'), function($query){
+            $query->inRandomOrder()->limit(request('limit'));
+        })->get();
+
+        return response($products);
+    }
+
+    public function showProduct(Product $product){
+        return view('client.product', compact('product'));
+    }
 }

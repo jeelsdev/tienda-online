@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Laravel</title>
 
     <!-- Fonts -->
@@ -76,11 +76,10 @@
                 </span>
                 <span class="capitalize ml-2 text-white">Todas las categorias</span>
 
-                <!-- dropdown -->
                 <div
-                    class="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
+                    class="absolute z-40 w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
                     @foreach ($categories as $category)
-                        <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                        <a href="{{ route('show-product-category', ['category'=>$category]) }}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                             <img src="{{ asset($category->image) }}" alt="sofa" class="w-5 h-5 object-contain">
                             <span class="ml-6 text-gray-600 text-sm">{{ $category->name }}</span>
                         </a>
@@ -91,7 +90,7 @@
             <div class="flex items-center justify-between flex-grow pl-12">
                 <div class="flex items-center space-x-6 capitalize">
                     <a href="/" class="text-gray-200 hover:text-white transition">Inicio</a>
-                    <a href="pages/shop.html" class="text-gray-200 hover:text-white transition">Productos</a>
+                    <a href="{{ route('show-products') }}" class="text-gray-200 hover:text-white transition">Productos</a>
                     <a href="#" class="text-gray-200 hover:text-white transition">Tiendas</a>
                 </div>
                 @if (Route::has('login'))
@@ -144,7 +143,7 @@
                         <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Categorias</h3>
                         <div class="mt-4 space-y-4">
                             @foreach ($categories as $category)
-                                <a href="#"
+                                <a href="{{ route('show-product-category', ['category'=>$category]) }}"
                                     class="text-base text-gray-500 hover:text-white block">{{ $category->name }}</a>
                             @endforeach
                         </div>

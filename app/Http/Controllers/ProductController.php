@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Status;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -155,5 +156,30 @@ class ProductController extends Controller
 
     public function showProduct(Product $product){
         return view('client.product', compact('product'));
+    }
+
+    public function showProducts(){
+        $categories = Category::select('id', 'name')->withCount('products')->get();
+        $products = Product::inRandomOrder()->limit(20)->with('category:id,name')->get();
+        return view('client.shop', compact(['categories', 'products']));
+    }
+
+    public function showProductsByCategories(){
+        $products = Product::when(!empty(request('categories')), function($query){
+            $query->whereIn('category_id', request('categories'));
+        })->when(!empty(request('sort')), function($query){
+            if(request('sort')=='desc'){
+                $query->orderBy('price', 'DESC');
+            }else{
+                $query->orderBy('price', 'ASC');
+            }
+        })->inRandomOrder()->limit(20)->with('category:id,name')->get();
+        return response($products);
+    }
+
+    public function showProductByCategory(Category $category){
+        $products = Product::where('category_id', $category->id)->get();
+        $count = Category::where('id', $category->id)->withCount('products')->get();
+        return view('client.products-by-category', compact(['products', 'category', 'count']));
     }
 }

@@ -8,7 +8,7 @@
                 accusantium perspiciatis, sapiente
                 magni eos dolorum ex quos dolores odio</p>
             <div class="mt-12">
-                <a href="#" class="bg-blue-900 border border-blue-900 text-white px-8 py-3 font-medium 
+                <a href="{{ route('show-products') }}" class="bg-blue-900 border border-blue-900 text-white px-8 py-3 font-medium 
                     rounded-md hover:bg-transparent hover:text-blue-800">Ver productos</a>
             </div>
         </div>
@@ -58,6 +58,7 @@
 
     <script>
         $(document).ready(function(){
+            var domain = window.location.origin;
             $.ajax({
                 type:'GET',
                 url: '/data/categories',
@@ -65,14 +66,13 @@
                     limit: 6,
                 }
             }).done(function(response){
-                console.log(response);
 
             $.each(response, function(index, obj) {
 
                 $('#categories').append(`
                 <div class="relative rounded-sm overflow-hidden group">
                 <img src="${obj.image}" alt="category 1" class="w-full">
-                <a href="#"
+                <a href="${domain}/products/product-category/${obj.id}"
                     class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition">${obj.name}</a>
                 </div>
             `);
@@ -88,7 +88,6 @@
                     limit: 24,
                 }
             }).done(function(response){
-                console.log(response);
                 $.each(response, function(index, obj){
                     $('#products').append(`
                 <div class="bg-white shadow rounded overflow-hidden group" style="display: flex; flex-direction: column; justify-content: space-between">

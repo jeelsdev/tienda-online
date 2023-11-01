@@ -75,8 +75,12 @@ Route::middleware('auth')->group(function(){
 Route::prefix('/data')->group(function(){
     Route::get('/categories', [CategoryController::class, 'getAll']);
     Route::get('/products', [ProductController::class, 'getAll']);
+    Route::post('/products-categories', [ProductController::class, 'showProductsByCategories']);
 });
 
-Route::get('/product/{product}', [ProductController::class, 'showProduct']);
+Route::get('/products', [ProductController::class, 'showProducts'])->name('show-products');
+Route::get('/product/{product}', [ProductController::class, 'showProduct'])->name('show-product');
+
+Route::get('/products/product-category/{category}', [ProductController::class, 'showProductByCategory'])->name('show-product-category');
 
 require_once __DIR__.'/auth.php';

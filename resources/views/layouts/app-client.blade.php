@@ -91,7 +91,7 @@
                 <div class="flex items-center space-x-6 capitalize">
                     <a href="/" class="text-gray-200 hover:text-white transition">Inicio</a>
                     <a href="{{ route('show-products') }}" class="text-gray-200 hover:text-white transition">Productos</a>
-                    <a href="#" class="text-gray-200 hover:text-white transition">Tiendas</a>
+                    <a href="{{ route('show-all-stores') }}" class="text-gray-200 hover:text-white transition">Tiendas</a>
                 </div>
                 @if (Route::has('login'))
                     <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

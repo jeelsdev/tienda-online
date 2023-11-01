@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Status;
+use App\Models\Store;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -181,5 +182,10 @@ class ProductController extends Controller
         $products = Product::where('category_id', $category->id)->get();
         $count = Category::where('id', $category->id)->withCount('products')->get();
         return view('client.products-by-category', compact(['products', 'category', 'count']));
+    }
+
+    public function showProductsByStore(Store $store){
+        $products = Product::where('store_id', $store->id)->get();
+        return view('client.products-by-stores', compact(['products', 'store']));
     }
 }

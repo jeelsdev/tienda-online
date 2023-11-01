@@ -80,7 +80,9 @@ Route::prefix('/data')->group(function(){
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('show-products');
 Route::get('/product/{product}', [ProductController::class, 'showProduct'])->name('show-product');
-
 Route::get('/products/product-category/{category}', [ProductController::class, 'showProductByCategory'])->name('show-product-category');
+
+Route::get('/products/store/{store}', [ProductController::class, 'showProductsByStore'])->name('show-products-store');
+Route::get('/stores', [StoreController::class, 'showAllStores'])->name('show-all-stores');
 
 require_once __DIR__.'/auth.php';

@@ -211,4 +211,8 @@ class StoreController extends Controller
         return view('admin.all-stores', compact('stores'));
     }
 
+    public function showAllStores(){
+        $stores = Store::where('status_id', 1)->get();
+        return view('client.stores', compact(['stores']));
+    }
 }

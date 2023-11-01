@@ -2510,6 +2510,9 @@ select {
 .col-span-3 {
   grid-column: span 3 / span 3;
 }
+.col-span-9 {
+  grid-column: span 9 / span 9;
+}
 .float-left {
   float: left;
 }
@@ -2603,9 +2606,6 @@ select {
 }
 .mb-4 {
   margin-bottom: 1rem;
-}
-.mb-5 {
-  margin-bottom: 1.25rem;
 }
 .mb-6 {
   margin-bottom: 1.5rem;
@@ -2790,6 +2790,9 @@ select {
 }
 .w-3\/5 {
   width: 60%;
+}
+.w-32 {
+  width: 8rem;
 }
 .w-4 {
   width: 1rem;
@@ -3396,6 +3399,9 @@ select {
 }
 .pb-16 {
   padding-bottom: 4rem;
+}
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 .pb-3 {
   padding-bottom: 0.75rem;
@@ -4287,6 +4293,10 @@ select {
 
   .md\:min-h-full {
     min-height: 100%;
+  }
+
+  .md\:w-1\/2 {
+    width: 50%;
   }
 
   .md\:w-64 {

@@ -161,7 +161,7 @@
                     <div>
                         <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Tiendas</h3>
                         <div class="mt-4 space-y-4">
-                            <a href="#" class="text-base text-gray-500 hover:text-white block">REGISTRARSE</a>
+                            <a href="{{ route('register-staff') }}" class="text-base text-gray-500 hover:text-white block">REGISTRARSE</a>
                             <a href="#" class="text-base text-gray-500 hover:text-white block">Ver todas</a>
                         </div>
                     </div>

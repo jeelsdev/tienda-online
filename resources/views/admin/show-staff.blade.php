@@ -11,7 +11,7 @@
                             <h6 class="text-blueGray-700 text-xl font-bold">
                             </h6>
                             <div>
-                                <x-link-button href="{{ route('admin.store.show', ['store'=>$store[0]->id]) }}">
+                                <x-link-button href="{{ route('admin.store.show', ['store' => $store[0]->id]) }}">
                                     Ver tienda
                                 </x-link-button>
                             </div>
@@ -47,16 +47,18 @@
                                                         </div>
                                                     @endif
                                                     @if ($user->status_id == 3)
-                                                    <div class="inline-flex items-center px-3 py-1 text-yellow-500 rounded-full gap-x-2 bg-yellow-100/60">
-                                                        <h2 class="text-sm font-normal">Bloqueado</h2>
-                                                    </div>
+                                                        <div
+                                                            class="inline-flex items-center px-3 py-1 text-yellow-500 rounded-full gap-x-2 bg-yellow-100/60">
+                                                            <h2 class="text-sm font-normal">Bloqueado</h2>
+                                                        </div>
                                                     @endif
                                                     @if ($user->status_id == 4)
-                                                    <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60">
-                                                        <h2 class="text-sm font-normal">Cerrado</h2>
-                                                    </div>
+                                                        <div
+                                                            class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60">
+                                                            <h2 class="text-sm font-normal">Cerrado</h2>
+                                                        </div>
                                                     @endif
-                                                    
+
                                                 </div>
 
                                             </div>
@@ -77,7 +79,8 @@
                                             htmlFor="grid-password">
                                             Nombre
                                         </label>
-                                        <x-input type="text" value="{{ $user->name }}" disabled="true" class="border-none"></x-input>
+                                        <x-input type="text" value="{{ $user->name }}" disabled="true"
+                                            class="border-none"></x-input>
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -86,7 +89,8 @@
                                             htmlFor="grid-password">
                                             Correo electronico
                                         </label>
-                                        <x-input type="text" value="{{ $user->email }}" disabled="true" class="border-none"></x-input>
+                                        <x-input type="text" value="{{ $user->email }}" disabled="true"
+                                            class="border-none"></x-input>
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -96,7 +100,8 @@
                                             Apellidos
                                         </label>
                                     </div>
-                                    <x-input type="text" value="{{ $user->surnames }}" disabled="true" class="border-none"></x-input>
+                                    <x-input type="text" value="{{ $user->surnames }}" disabled="true"
+                                        class="border-none"></x-input>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
@@ -104,7 +109,8 @@
                                             htmlFor="grid-password">
                                             Teléfono
                                         </label>
-                                        <x-input type="text" value="{{ $user->phone }}" disabled="true" class="border-none"></x-input>
+                                        <x-input type="text" value="{{ $user->phone }}" disabled="true"
+                                            class="border-none"></x-input>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +123,8 @@
                             <div class="flex flex-wrap">
                                 <div class="w-full lg:w-12/12 px-4">
                                     <div class="relative w-full mb-3">
-                                        <x-input type="text" value="{{ $direction[0]->direction }}" disabled="true" class="border-none"></x-input>
+                                        <x-input type="text" value="{{ $direction[0]->direction }}" disabled="true"
+                                            class="border-none"></x-input>
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-4/12 px-4">
@@ -126,7 +133,8 @@
                                             htmlFor="grid-password">
                                             Departemento
                                         </label>
-                                        <x-input type="text" value="{{ $direction[0]->department->name }}" disabled="true" class="border-none"></x-input>
+                                        <x-input type="text" value="{{ $direction[0]->department->name }}"
+                                            disabled="true" class="border-none"></x-input>
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-4/12 px-4">

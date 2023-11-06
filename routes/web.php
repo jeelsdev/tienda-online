@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnlockController;
+use App\Http\Controllers\WebhooksController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -70,12 +72,25 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/sales', [TransactionController::class, 'getSales'])->name('staff.sales');
     });
+
+    Route::middleware(['role:client'])->group(function(){
+        Route::get('/profile', [ClientController::class, 'index'])->name('client.profile');
+        Route::get('/profile/show', [ClientController::class, 'show'])->name('client.profile.show');
+        Route::get('/profile/edit', [ClientController::class, 'edit'])->name('client.profile.edit');
+        Route::post('/profile/update', [ClientController::class, 'update'])->name('client.profile.update');
+
+        Route::get('/history', [HistoryController::class, 'index'])->name('client.history');
+
+        Route::delete('/trasaction/{transaction}', [TransactionController::class, 'destroy'])->name('client.transaction.destroy');
+    });
+
 });
 
 Route::prefix('/data')->group(function(){
     Route::get('/categories', [CategoryController::class, 'getAll']);
     Route::get('/products', [ProductController::class, 'getAll']);
     Route::post('/products-categories', [ProductController::class, 'showProductsByCategories']);
+    Route::post('/search-products', [ProductController::class, 'search']);
 });
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('show-products');
@@ -84,5 +99,9 @@ Route::get('/products/product-category/{category}', [ProductController::class, '
 
 Route::get('/products/store/{store}', [ProductController::class, 'showProductsByStore'])->name('show-products-store');
 Route::get('/stores', [StoreController::class, 'showAllStores'])->name('show-all-stores');
+
+Route::get('/payment/{product}', [ProductController::class, 'payment'])->name('product.payment');
+
+Route::post('webhooks', WebhooksController::class);
 
 require_once __DIR__.'/auth.php';

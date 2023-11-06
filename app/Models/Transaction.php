@@ -9,6 +9,14 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'store_id',
+        'product_id',
+        'amount',
+        'pay',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

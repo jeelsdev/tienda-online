@@ -32,7 +32,7 @@
                                     title="view product">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                                <a href="#"
+                                <a href="{{ route('product.payment', ['product'=>$product]) }}"
                                     class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                                     title="add to wishlist">
                                     <i class="fa-solid fa-bag-shopping"></i>
@@ -54,7 +54,7 @@
                             </div>
 
                         </div>
-                        <a href="#"
+                        <a href="{{ route('product.payment', ['product'=>$product]) }}"
                             class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">comprar</a>
                     </div>
                 @endforeach
@@ -65,7 +65,7 @@
 
     <script>
         $(document).ready(function() {
-
+            const domain = window.location.origin;
             $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -90,12 +90,12 @@
                     <img src="${obj.image}" alt="product 1" class="w-full">
                     <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center 
                     justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                        <a href="product/${obj.id}"
+                        <a href="${domain}/product/${obj.id}"
                             class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                             title="view product">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a href="#"
+                        <a href="${domain}/payment/${obj.id}"
                             class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                             title="add to wishlist">
                             <i class="fa-solid fa-bag-shopping"></i>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div class="pt-4 pb-3 px-4">
-                    <a href="product/${obj.id}">
+                    <a href="${domain}/product/${obj.id}">
                         <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">${obj.name}</h4>
                     </a>
                     <div class="flex items-baseline mb-1 space-x-2">
@@ -114,7 +114,7 @@
                         <div class="text-xs text-gray-500 ml-3">${obj.category.name}</div>
                     </div>
                 </div>
-                <a href="#"
+                <a href="${domain}/payment/${obj.id}"
                     class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Comprar</a>
             </div>
                 `)

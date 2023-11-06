@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Status;
 use App\Models\Store;
+use App\Models\Transaction;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -187,5 +188,35 @@ class ProductController extends Controller
     public function showProductsByStore(Store $store){
         $products = Product::where('store_id', $store->id)->get();
         return view('client.products-by-stores', compact(['products', 'store']));
+    }
+
+    public function search(){
+        $products = Product::select(['id', 'name', 'price', 'image'])
+            ->where('status_id', 1)
+            ->when(request('search'), function($query){
+                $query->where('name', 'LIKE', '%'.request('search').'%');
+            })->limit(10)
+            ->get();
+
+        return response($products);
+    }
+
+    public function payment(Product $product){
+
+        if(auth()->check()){
+
+            Transaction::create([
+                'user_id'=>auth()->user()->id,
+                'store_id'=>$product->store_id,
+                'product_id'=>$product->id,
+                'amount'=>1,
+                'pay'=>$product->price,
+            ]);
+
+            return view('client.payment', compact('product'));
+
+        }
+        return redirect()->route('login');
+
     }
 }

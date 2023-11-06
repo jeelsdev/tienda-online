@@ -8,6 +8,7 @@ use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Notifications\UserBlocked;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
@@ -18,7 +19,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-
+        return view('client.profile');
     }
 
     /**
@@ -39,7 +40,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -48,9 +48,10 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return view('client.show-profile');
+
     }
 
     /**
@@ -59,9 +60,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('client.edit-profile');
     }
 
     /**
@@ -71,9 +72,38 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required|string|max:30',
+            'surnames'=>'required|string|max:100',
+            'phone'=>'required|numeric|digits:9',
+            'birthday'=>'required|date',
+            'profile'=>'image|max:1024'
+        ]);
+
+        $user = auth()->user();
+
+        if($request->profile){
+            $image =  $request->file('profile')->store('/public/images/profiles');
+            $user->update([
+                'name'=>$request->name,
+                'surnames'=>$request->surnames,
+                'phone'=>$request->phone,
+                'birthday'=>$request->birthday,
+                'profile'=>Storage::url($image)
+            ]);
+        }else{
+            $user->update([
+                'name'=>$request->name,
+                'surnames'=>$request->surnames,
+                'phone'=>$request->phone,
+                'birthday'=>$request->birthday,
+            ]);
+        }
+
+        Session::flash('message', 'Se actualizo correctamente.');
+        return redirect()->route('client.profile.edit');
     }
 
     /**

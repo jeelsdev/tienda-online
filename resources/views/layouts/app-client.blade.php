@@ -37,33 +37,57 @@
                 <img src="{{ asset('images/logo-ecommerce.png') }}" alt="Logo" class="w-16" width="100">
             </a>
 
-            <div class="w-full max-w-xl relative flex">
-                <span class="absolute left-4 top-3 text-lg text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-                <input type="text" name="search" id="search"
-                    class="w-full border border-blue-800 border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
-                    placeholder="Buscar producto">
-                <button
-                    class="bg-blue-900 border border-blue-800 text-white px-8 rounded-r-md hover:bg-transparent hover:text-blue-900 transition">Search</button>
+            <div class="w-full max-w-xl group" id="container-search">
+                <div class="w-full max-w-xl relative flex group">
+                    <span class="absolute left-4 top-3 text-lg text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="search" name="search" id="search" autocomplete="off"
+                        class="w-full border border-blue-800 border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
+                        placeholder="Buscar producto">
+                    <button
+                        class="bg-blue-900 border border-blue-800 text-white px-8 rounded-r-md hover:bg-transparent hover:text-blue-900 transition" id="btnSearch">Search</button>
+                </div>
+                <div class="absolute z-40 w-full max-w-xl bg-white mt-4 hidden" id="product_list">
+                    
+                </div>
             </div>
 
             <div class="flex items-center space-x-8">
-
-                <a href="{{ route('login') }}"
-                    class="text-center text-gray-700 hover:text-blue-500 transition relative">
-                    <div class="text-2xl">
-                        <i class="fa-regular fa-user"></i>
-                    </div>
-                    <div class="text-xs leading-3">Iniciar sesión</div>
-                </a>
-                <a href="{{ route('register') }}"
-                    class="text-center text-gray-700 hover:text-blue-500 transition relative">
-                    <div class="text-2xl">
-                        <i class="fa-regular fa-user"></i>
-                    </div>
-                    <div class="text-xs leading-3">REGISTRARSE</div>
-                </a>
+                @auth
+                    @if (auth()->user()->hasRole('client'))
+                        <a href="{{ route('client.profile') }}"
+                            class="text-center text-gray-700 hover:text-blue-500 transition relative">
+                            <div class="text-2xl">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            <div class="text-xs leading-3">Mi cuenta</div>
+                        </a>
+                    @else
+                        <a href="{{ route('dashboard') }}"
+                            class="text-center text-gray-700 hover:text-blue-500 transition relative">
+                            <div class="text-2xl">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            <div class="text-xs leading-3">Mi cuenta</div>
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}"
+                        class="text-center text-gray-700 hover:text-blue-500 transition relative">
+                        <div class="text-2xl">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <div class="text-xs leading-3">Iniciar sesión</div>
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="text-center text-gray-700 hover:text-blue-500 transition relative">
+                        <div class="text-2xl">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <div class="text-xs leading-3">REGISTRARSE</div>
+                    </a>
+                @endauth
             </div>
         </div>
     </header>
@@ -175,6 +199,54 @@
             <p class="text-white">&copy; ecommerce - Todos los derechos reservados</p>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            const domain = window.location.origin;
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $('#search').on('focus', function(){
+                    $('#search').on('input', function(e){
+                        $.ajax({
+                            type: 'POST',
+                            url: '/data/search-products',
+                            data: {
+                                search: $('#search').val()
+                            }
+                        }).done(function(response){
+                            $('#product_list').empty();
+                            $('#product_list').removeClass('hidden');
+                            console.log(response);
+                            $.each(response, function(index, obj){
+                                $('#product_list').append(`
+                                    <a href="${domain}/product/${obj.id}" class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded hover:bg-gray-200">
+                                <div class="flex justify-center">
+                                    <img src="${obj.image}" alt="product 6" class=" w-5 h-5">
+                                </div>
+                                <div class="w-1/2">
+                                    <p class="text-gray-800 text-sm font-medium capitalize">${obj.name}</p>
+                                </div>
+                                <div class="text-primary text-sm font-semibold">s/. ${obj.price}</div>
+                            </a>
+                                `)
+                            })
+                        })
+                    })
+
+                })
+
+            $(document).click(function(event) {
+                var target = $(event.target);
+                if (!target.is("#container-search")) {
+                    $("#product_list").addClass("hidden");
+                }
+            });
+
+        });
+    </script>
 
 </body>
 

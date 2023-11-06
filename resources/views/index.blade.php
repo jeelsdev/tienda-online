@@ -100,7 +100,7 @@
                             title="view product">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a href="#"
+                        <a href="/payment/${obj.id}"
                             class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                             title="add to wishlist">
                             <i class="fa-solid fa-bag-shopping"></i>
@@ -119,7 +119,7 @@
                         <div class="text-xs text-gray-500 ml-3">${obj.category.name}</div>
                     </div>
                 </div>
-                <a href="#"
+                <a href="/payment/${obj.id}"
                     class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Comprar</a>
             </div>
                 `)

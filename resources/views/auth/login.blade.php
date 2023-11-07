@@ -11,12 +11,12 @@
               @csrf
               <div class="mb-4">
                 <x-input type="email" id="email" name="email" value="{{ old('email') }}"  placeholder="Email"></x-input>
+                @error('email')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
               </div>
               <div class="mb-4">
                 <x-input type="password" placeholder="Password" id="password" name="password" required autocomplete="current-password"></x-input>
-                @error($errors->first('password'))
-                    {{ $errors->first('password') }}
-                @enderror
               </div>
               <div class="flex items-center pl-12 mb-0.5 text-left min-h-6">
                 <x-rememberme id="rememberMe" name="remenber" type="checkbox"></x-rememberme>

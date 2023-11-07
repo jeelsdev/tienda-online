@@ -6,7 +6,7 @@
                     <div class="rounded-t bg-white mb-0 px-6 py-6">
                         <div class="text-center flex justify-between">
                             <h6 class="text-gray-700 text-xl font-bold">
-                                Crear tienda
+                                Registrar tienda
                             </h6>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                                             htmlFor="grid-password">
                                             Nombre
                                         </label>
-                                        <input name="name" type="text"
+                                        <input name="name" type="text" value="{{ old('name') }}"
                                             class="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                              />
                                             @error('name')
@@ -38,7 +38,7 @@
                                             htmlFor="grid-password">
                                             Ruc
                                         </label>
-                                        <input name="ruc" type="number"
+                                        <input name="ruc" type="number" value="{{ old('ruc') }}"
                                             class="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             />
                                             @error('ruc')
@@ -82,7 +82,7 @@
                                             htmlFor="grid-password">
                                             Descripción
                                         </label>
-                                        <x-textarea name="description"></x-textarea>
+                                        <x-textarea name="description">{{ old('description') }}</x-textarea>
                                         @error('description')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror

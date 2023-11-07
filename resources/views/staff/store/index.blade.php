@@ -44,7 +44,7 @@
                                 <i class="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>
                                 {{ $store->ruc }}
                             </div>
-                            <div class="mb-2 text-gray-600 mt-10">
+                            {{-- <div class="mb-2 text-gray-600 mt-10">
                                 <i class="fas fa-briefcase mr-2 text-lg text-gray-400"></i>
                                 Solution Manager - Creative Tim Officer
                             </div>
@@ -61,7 +61,7 @@
                                     <i class="fas fa-university mr-2 text-lg text-gray-400"></i>
                                     University of Computer Science
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="mt-10 py-10 border-t border-gray-200 text-center">
                             <div class="flex flex-wrap justify-center">

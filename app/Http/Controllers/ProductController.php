@@ -22,6 +22,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if(Store::where('user_id', auth()->user()->id)->count() == 0){
+            return redirect()->route('staff.store.create');
+        }
         $user = auth()->user();
         $products = Product::with('category')->where('store_id', $user->store->id)
             ->when(request('search'), function($query){

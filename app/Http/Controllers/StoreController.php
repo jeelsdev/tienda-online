@@ -23,9 +23,10 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $store = Store::find(auth()->user()->store->id);
-
-        if($store){
+        $store = Store::where('user_id', auth()->user()->id)->count();
+        
+        if($store == 1){
+            $store = Store::where('user_id',auth()->user()->id)->first();
             return view('staff.store.index', compact('store'));
         }
         return redirect()->route('staff.store.create');
@@ -39,7 +40,8 @@ class StoreController extends Controller
      */
     public function create()
     {
-        if(Store::find(auth()->user()->store->id)){
+        $store = Store::where('user_id', auth()->user()->id)->count();
+        if($store == 1){
             return redirect()->route('staff.store');
         }
         return view('staff.store.create');

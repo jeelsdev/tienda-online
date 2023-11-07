@@ -2860,6 +2860,9 @@ select {
 .max-w-xl {
   max-width: 36rem;
 }
+.max-w-xs {
+  max-width: 20rem;
+}
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -4330,6 +4333,14 @@ select {
 
   .md\:w-1\/2 {
     width: 50%;
+  }
+
+  .md\:w-28 {
+    width: 7rem;
+  }
+
+  .md\:w-52 {
+    width: 13rem;
   }
 
   .md\:w-64 {

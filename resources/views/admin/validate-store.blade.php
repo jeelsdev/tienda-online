@@ -69,7 +69,7 @@
                                         <div class="w-full  flex justify-center min-h-max" style="height: 15rem">
                                             <div class="relative">
                                                 <img alt="logo" src="{{ $store->logo }}"
-                                                    class="shadow-xl rounded-full align-middle border-none  max-w-150-px" />
+                                                    class="shadow-xl rounded-full align-middle border-none md:w-52  max-w-xs" />
                                             </div>
                                         </div>
                                         <div class="w-full px-4 text-center mt-1">
@@ -98,7 +98,7 @@
 
                             </div>
 
-
+                            @if (!empty($direction[0]))
                             <hr class="mt-2 border-b-1 border-blueGray-300" />
 
                             <h6 class="text-blueGray-400 text-sm mt-3 mb-3 font-bold uppercase">
@@ -131,6 +131,8 @@
                                     </div>
                                 </div>
                             </div>
+                                
+                            @endif
 
                             <hr class="mt-2 border-b-1 border-blueGray-300" />
 

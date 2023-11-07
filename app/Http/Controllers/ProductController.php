@@ -205,15 +205,20 @@ class ProductController extends Controller
 
         if(auth()->check()){
 
-            Transaction::create([
-                'user_id'=>auth()->user()->id,
-                'store_id'=>$product->store_id,
-                'product_id'=>$product->id,
-                'amount'=>1,
-                'pay'=>$product->price,
-            ]);
+            if (request('transaction')) {
+                $transaction = request('transaction');
+            } else {
+                $transaction = Transaction::create([
+                    'user_id'=>auth()->user()->id,
+                    'store_id'=>$product->store_id,
+                    'product_id'=>$product->id,
+                    'status_id'=>2,
+                    'amount'=>1,
+                    'pay'=>$product->price,
+                ]);
+            }
 
-            return view('client.payment', compact('product'));
+            return view('client.payment', compact(['product', 'transaction']));
 
         }
         return redirect()->route('login');

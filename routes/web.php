@@ -103,5 +103,6 @@ Route::get('/stores', [StoreController::class, 'showAllStores'])->name('show-all
 Route::get('/payment/{product}', [ProductController::class, 'payment'])->name('product.payment');
 
 Route::post('webhooks', WebhooksController::class);
+Route::get('transaction/{transaction}/pay', [TransactionController::class, 'pay'])->name('trasaction.pay');
 
 require_once __DIR__.'/auth.php';

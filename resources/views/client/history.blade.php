@@ -1,4 +1,5 @@
 <x-app-client-layout>
+    
     <!-- account wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
  
@@ -65,13 +66,22 @@
                     <h2 class="text-gray-800 text-xl font-medium uppercase">{{ $transaction->product->name }}</h2>
                     <p class="text-gray-500 text-sm">Cantidad: <span class="text-green-600">{{ $transaction->amount }}</span></p>
                 </div>
-                <div class="text-primary text-lg font-semibold">s/ {{ $transaction->pay }}</div>
-                <div class="text-green-600 text-lg font-semibold">Estado: Aprobado</div>
-                <form action="{{ route('client.transaction.destroy', ['transaction'=>$transaction]) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" value="cancelar" class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none mr-2  cursor-pointer">
-                </form>
+                <div class="text-lg font-semibold">s/ {{ $transaction->pay }}</div>
+                @if ($transaction->status_id == 1)
+                    <div class="text-green-600 text-lg font-semibold">Aprobado</div>
+                @else
+                    <div class="text-red-600 text-lg font-semibold">Pendiente</div>
+                @endif
+                @if ($transaction->status_id == 2)
+                    <form action="{{ route('client.transaction.destroy', ['transaction'=>$transaction]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <x-link-button href="{{ route('product.payment', ['product'=>$transaction->product, 'transaction'=>$transaction]) }}" class="block bg-blue-600">Ver más</x-link-button>
+                        <input type="submit" value="cancelar" class="text-gray-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none mr-2  cursor-pointer text-center">
+                    </form>
+                @else
+                    <div class="w-16"></div>
+                @endif
             </div>
         @endforeach
 

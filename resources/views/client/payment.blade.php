@@ -14,7 +14,7 @@
 
         $preference->items = [$item];
         $preference->back_urls = [
-            'success' => 'http://127.0.0.1:8000/history',
+            'success' => route('trasaction.pay', $transaction),
             'failure' => 'http://www.tu-sitio/failure',
             'pending' => 'http://www.tu-sitio/pending',
         ];
@@ -36,7 +36,7 @@
                         <p class="text-gray-500 text-sm">Cantidad: <span class="text-green-600">1</span></p>
                     </div>
                 </div>
-                <div class="grid grid-cols-3 gap-4 md:w-full">
+                <div class="grid grid-cols-3 gap-4 w-1/2">
                     <div class="">
                         <div class="text-gray-600 text-lg font-semibold text-center"> Precio</div>
                         <div class="text-lg font-semibold text-center"> {{ $product->price }}</div>
@@ -86,13 +86,5 @@
             }
         })
 
-        // const bricksBuilder = mp.bricks();
-
-
-        // mp.bricks().create("wallet", "wallet_container", {
-        //    initialization: {
-        //        preferenceId: "{{ $preference->id }}",
-        //    },
-        // });
     </script>
 </x-app-client-layout>

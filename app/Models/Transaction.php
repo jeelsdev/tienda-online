@@ -13,6 +13,7 @@ class Transaction extends Model
         'user_id',
         'store_id',
         'product_id',
+        'status_id',
         'amount',
         'pay',
     ];

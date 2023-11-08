@@ -193,7 +193,7 @@ class StoreController extends Controller
             })->when(request('search'), function($query){
                 $query->where('name', 'LIKE', '%'.request('search').'%')
                 ->orWhere('ruc', 'LIKE', '%'.request('search').'%');
-            })->orderBy('created_at')
+            })->orderBy('created_at','DESC')
             ->paginate(10);
 
         return view('admin.new-stores', compact('stores'));

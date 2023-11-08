@@ -63,7 +63,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('client.profile');
     }
 
     public function storeStaff(Request $request)

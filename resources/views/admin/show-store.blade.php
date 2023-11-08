@@ -25,7 +25,7 @@
                                 <div class="w-full lg:w-12/12 px-4">
                                     <div class="flex flex-wrap justify-center">
                                         <div class="w-full  flex justify-center min-h-max" style="height: 15rem">
-                                            <div class="relative">
+                                            <div class="relative inline-flex">
                                                 <img alt="logo" src="{{ $store->logo }}"
                                                     class="shadow-xl rounded-full align-middle border-none  max-w-150-px" />
                                             </div>

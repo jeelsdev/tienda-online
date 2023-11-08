@@ -16,7 +16,7 @@
                         @enderror
                     </div>
                     <div class="mb-4">
-                        <x-input type="text" id="surname" name="surnames" value="{{ old('surname') }}"
+                        <x-input type="text" id="surname" name="surnames" value="{{ old('surnames') }}"
                             placeholder="Apellidos"></x-input>
                         @error('surnames')
                             <span class="text-red-500">{{ $message }}</span>

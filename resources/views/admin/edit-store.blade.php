@@ -60,9 +60,9 @@
                                 <div class="w-full lg:w-6/12 px-4">
                                     <div class="flex flex-wrap justify-center">
                                         <div class="w-full  flex justify-center min-h-max" style="height: 15rem">
-                                            <div class="relative">
+                                            <div class="relative inline-flex justify-center">
                                                 <img alt="logo" src="{{ $store->logo }}"
-                                                    class="shadow-xl rounded-full align-middle border-none  max-w-150-px" />
+                                                    class="shadow-xl rounded-full align-middle border-none  w-40 md:w-40" />
                                             </div>
                                         </div>
                                         <div class="w-full px-4 text-center mt-1">

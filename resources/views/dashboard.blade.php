@@ -125,7 +125,7 @@
                                     Descripción
                                 </h6>
                                 <h2 class="text-xl font-semibold">
-                                    Comparación de los ultimo meses
+                                    Ventas de los ultimos 12 meses
                                 </h2>
                             </div>
                         </div>

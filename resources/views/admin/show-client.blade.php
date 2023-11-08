@@ -13,7 +13,7 @@
                                 <div class="w-full lg:w-12/12 px-4">
                                     <div class="flex flex-wrap justify-center">
                                         <div class="w-full  flex justify-center min-h-max" style="height: 15rem">
-                                            <div class="relative">
+                                            <div class="relative inline-flex">
                                                 <img alt="logo" src="{{ $client->profile }}"
                                                     class="shadow-xl rounded-full align-middle border-none  max-w-150-px" />
                                             </div>
@@ -96,48 +96,50 @@
                                     </div>
                                 </div>
                             </div>
+                            @if (!empty($direction[0]))
+                                    
+                                <hr class="mt-2 border-b-1 border-blueGray-300" />
 
-                            <hr class="mt-2 border-b-1 border-blueGray-300" />
-
-                            <h6 class="text-blueGray-400 text-sm mt-3 mb-3 font-bold uppercase">
-                                Dirección
-                            </h6>
-                            <div class="flex flex-wrap">
-                                <div class="w-full lg:w-12/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <x-input type="text" value="{{ $direction[0]->direction }}" disabled="true" class="border-none"></x-input>
+                                <h6 class="text-blueGray-400 text-sm mt-3 mb-3 font-bold uppercase">
+                                    Dirección
+                                </h6>
+                                <div class="flex flex-wrap">
+                                    <div class="w-full lg:w-12/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <x-input type="text" value="{{ $direction[0]->direction }}" disabled="true" class="border-none"></x-input>
+                                        </div>
+                                    </div>
+                                    <div class="w-full lg:w-4/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password">
+                                                Departemento
+                                            </label>
+                                            <x-input type="text" value="{{ $direction[0]->department->name }}" disabled="true" class="border-none"></x-input>
+                                        </div>
+                                    </div>
+                                    <div class="w-full lg:w-4/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password">
+                                                Provincia
+                                            </label>
+                                            <x-input type="text" value="{{ $direction[0]->province->name }}"
+                                                disabled="true" class="border-none"></x-input>
+                                        </div>
+                                    </div>
+                                    <div class="w-full lg:w-4/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password">
+                                                Distrito
+                                            </label>
+                                            <x-input type="text" value="{{ $direction[0]->district->name }}"
+                                                disabled="true" class="border-none"></x-input>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-4/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                            htmlFor="grid-password">
-                                            Departemento
-                                        </label>
-                                        <x-input type="text" value="{{ $direction[0]->department->name }}" disabled="true" class="border-none"></x-input>
-                                    </div>
-                                </div>
-                                <div class="w-full lg:w-4/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                            htmlFor="grid-password">
-                                            Provincia
-                                        </label>
-                                        <x-input type="text" value="{{ $direction[0]->province->name }}"
-                                            disabled="true" class="border-none"></x-input>
-                                    </div>
-                                </div>
-                                <div class="w-full lg:w-4/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                            htmlFor="grid-password">
-                                            Distrito
-                                        </label>
-                                        <x-input type="text" value="{{ $direction[0]->district->name }}"
-                                            disabled="true" class="border-none"></x-input>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
                             <hr class="mt-2 border-b-1 border-blueGray-300" />
 
                             <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">

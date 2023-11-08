@@ -18,9 +18,9 @@
                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-gray-300">Perfil</a>
                 @endif
                 @if (auth()->user()->hasRole('staff'))
-                    <a href="#"
+                    <a href="{{ route('staff.profile') }}"
                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-gray-300">Perfil</a>
-                    <a href="#"
+                    <a href="{{ route('staff.store') }}"
                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-gray-300">Mi tienda</a>
                 @endif
                 <div class="h-0 my-2 border border-solid border-blueGray-100"></div>

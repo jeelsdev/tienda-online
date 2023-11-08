@@ -12,6 +12,7 @@ use App\Models\Status;
 use App\Notifications\UserBlocked;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
@@ -22,6 +23,8 @@ class StaffController extends Controller
      */
     public function index()
     {
+        $user = User::find(auth()->user()->id);
+        return view('staff.profile', compact('user'));
     }
 
     /**
@@ -122,6 +125,35 @@ class StaffController extends Controller
         ]);
 
         return redirect()->route('admin.staffs');
+    }
+
+    public function updateProfile(Request $request, User $user){
+        $request->validate([
+            'name'=>'required|string|max:30',
+            'surnames'=>'required|string|max:30',
+            'phone'=>'required|numeric',
+            'birthday'=>'required|date',
+            'profile'=>'image|max:2048',
+        ]);
+
+        if($request->profile){
+            $image =  $request->file('profile')->store('/public/images/profiles');
+            $user->update([
+                'name'=>$request->name,
+                'surnames'=>$request->surnames,
+                'phone'=>$request->phone,
+                'birthday'=>$request->birthday,
+                'profile'=>Storage::url($image),
+            ]);
+        }else{
+            $user->update([
+                'name'=>$request->name,
+                'surnames'=>$request->surnames,
+                'phone'=>$request->phone,
+                'birthday'=>$request->birthday,
+            ]);
+        }
+        return redirect()->route('staff.profile');
     }
 
     /**

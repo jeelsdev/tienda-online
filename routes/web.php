@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
@@ -18,9 +19,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function(){
 
-    Route::get('/dashboard', function(){
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware(['role:admin'])->prefix('/admin')->group(function(){
         Route::prefix('/store')->group(function(){
@@ -69,7 +68,8 @@ Route::middleware('auth')->group(function(){
             Route::get('/{store}/edit', [StoreController::class, 'editByStaff'])->name('staff.store.edit');
             Route::post('/{store}/update', [StoreController::class, 'updateByStaff'])->name('staff.store.update');
         });
-
+        Route::get('/profile', [StaffController::class, 'index'])->name('staff.profile');
+        Route::post('/profile/{user}/update', [StaffController::class, 'updateProfile'])->name('staff.profile.update');
         Route::get('/sales', [TransactionController::class, 'getSales'])->name('staff.sales');
     });
 
@@ -84,6 +84,9 @@ Route::middleware('auth')->group(function(){
         Route::delete('/trasaction/{transaction}', [TransactionController::class, 'destroy'])->name('client.transaction.destroy');
     });
 
+    Route::get('sales-for-month', [DashboardController::class, 'salesForMonth']);
+    Route::get('sold-products', [DashboardController::class, 'soldProducts']);
+    
 });
 
 Route::prefix('/data')->group(function(){

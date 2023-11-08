@@ -7,18 +7,18 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         type="button" onclick="toggleNavbar('example-collapse-sidebar')">
         <i class="fas fa-bars"></i>
     </button>
-    <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-        href="#">
+    <a class="md:block text-center md:pb-2 text-black mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+        href="{{ route('dashboard') }}">
         Tienda online
     </a>
     
     <div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
         id="example-collapse-sidebar">
-        <div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
+        <div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blue-200">
             <div class="flex flex-wrap">
                 <div class="w-6/12">
-                    <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                        href="#">
+                    <a class="md:block text-left md:pb-2 text-black mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                        href="{{ route('dashboard') }}">
                         Tienda online
                     </a>
                 </div>
@@ -34,14 +34,14 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         <form class="mt-6 mb-4 md:hidden">
             <div class="mb-3 pt-0">
                 <input type="text" placeholder="Search"
-                    class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                    class="border-0 px-3 py-2 h-12 border border-solid border-blue-500 placeholder-blue-300 text-blue-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
             </div>
         </form>
         <!-- Divider -->
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->
         <h6
-            class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            class="md:min-w-full text-black text-xs uppercase font-bold block pt-1 pb-4 no-underline">
             Inicio
         </h6>
         <!-- Navigation -->
@@ -49,7 +49,7 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
             <li class="items-center">
                 <a href="{{ route('dashboard') }}"
-                    class="text-xs uppercase py-3 font-bold block text-blue-500 hover:text-blue-600">
+                    class="{{ setActive('dashboard')?'text-blue-500':'' }} text-xs uppercase py-3 font-bold block  hover:text-blue-600">
                     <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
                     Dashboard
                 </a>
@@ -60,7 +60,7 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->
         <h6
-            class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            class="md:min-w-full text-black text-xs uppercase font-bold block pt-1 pb-4 no-underline">
             Tiendas
         </h6>
         <!-- Navigation -->
@@ -68,16 +68,16 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
             <li class="items-center">
                 <a href="{{ route('admin.stores.news') }}"
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-                    <i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"></i>
+                    class="{{ setActive('admin.stores.news')?'text-blue-500':'' }} hover:text-blue-500 text-xs uppercase py-3 font-bold block">
+                    <i class="fas fa-fingerprint  mr-2 text-sm"></i>
                     Nuevos
                 </a>
             </li>
 
             <li class="items-center">
                 <a href="{{ route('admin.stores') }}"
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-                    <i class="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>
+                    class="{{ setActive('admin.stores')?'text-blue-500':'' }} hover:text-blue-500 text-xs uppercase py-3 font-bold block">
+                    <i class="fas fa-clipboard-list  mr-2 text-sm"></i>
                     Todos
                 </a>
             </li>
@@ -87,7 +87,7 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->
         <h6
-            class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            class="md:min-w-full text-black text-xs uppercase font-bold block pt-1 pb-4 no-underline">
             Usuarios
         </h6>
         <!-- Navigation -->
@@ -95,23 +95,23 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
         <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
             <li class="items-center">
                 <a href="{{ route('admin.staffs') }}"
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-                    <i class="fas fa-newspaper text-blueGray-300 mr-2 text-sm"></i>
+                    class="{{ setActive('admin.staffs')?'text-blue-500':'' }} hover:text-blue-500 text-xs uppercase py-3 font-bold block">
+                    <i class="fas fa-newspaper  mr-2 text-sm"></i>
                     Vendedores
                 </a>
             </li>
             <li class="items-center">
                 <a href="{{ route('admin.clients') }}"
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-                    <i class="fas fa-newspaper text-blueGray-300 mr-2 text-sm"></i>
+                    class="{{ setActive('admin.clients')?'text-blue-500':'' }} hover:text-blue-500 text-xs uppercase py-3 font-bold block">
+                    <i class="fas fa-newspaper  mr-2 text-sm"></i>
                     clientes
                 </a>
             </li>
 
             <li class="items-center">
                 <a href="{{ route('request.index') }}"
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-                    <i class="fas fa-user-circle text-blueGray-300 mr-2 text-sm"></i>
+                    class="{{ setActive('request.index')?'text-blue-500':'' }} hover:text-blue-500 text-xs uppercase py-3 font-bold block">
+                    <i class="fas fa-user-circle  mr-2 text-sm"></i>
                     Solicitudes
                 </a>
             </li>

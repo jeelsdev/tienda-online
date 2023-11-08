@@ -214,7 +214,10 @@ class StoreController extends Controller
     }
 
     public function showAllStores(){
-        $stores = Store::where('status_id', 1)->get();
+        $stores = Store::where('status_id', 1)
+            ->inRandomOrder()
+            ->get();
+
         return view('client.stores', compact(['stores']));
     }
 }

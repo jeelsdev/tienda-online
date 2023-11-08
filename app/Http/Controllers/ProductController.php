@@ -154,7 +154,8 @@ class ProductController extends Controller
         $products = Product::with('category')
             ->when(request('limit'), function($query){
             $query->inRandomOrder()->limit(request('limit'));
-        })->get();
+        })->where('status_id', 1)
+        ->get();
 
         return response($products);
     }
@@ -164,12 +165,23 @@ class ProductController extends Controller
     }
 
     public function showProducts(){
-        $categories = Category::select('id', 'name')->withCount('products')->get();
-        $products = Product::inRandomOrder()->limit(20)->with('category:id,name')->get();
+
+        $categories = Category::select('categories.id', 'categories.name')
+        ->withCount(['products'=>function($query){
+            $query->where('status_id',1);
+        }])->get();
+
+        $products = Product::inRandomOrder()
+            ->limit(20)
+            ->with('category:id,name')
+            ->where('status_id', 1)
+            ->get();
+
         return view('client.shop', compact(['categories', 'products']));
     }
 
     public function showProductsByCategories(){
+
         $products = Product::when(!empty(request('categories')), function($query){
             $query->whereIn('category_id', request('categories'));
         })->when(!empty(request('sort')), function($query){
@@ -178,18 +190,34 @@ class ProductController extends Controller
             }else{
                 $query->orderBy('price', 'ASC');
             }
-        })->inRandomOrder()->limit(20)->with('category:id,name')->get();
+        })->inRandomOrder()
+        ->where('status_id', 1)
+        ->limit(20)
+        ->with('category:id,name')
+        ->get();
+
         return response($products);
     }
 
     public function showProductByCategory(Category $category){
-        $products = Product::where('category_id', $category->id)->get();
-        $count = Category::where('id', $category->id)->withCount('products')->get();
+
+        $products = Product::where('category_id', $category->id)
+            ->where('status_id', 1)
+            ->get();
+
+        $count = Category::where('id', $category->id)
+            ->withCount(['products'=>function($query){
+                $query->where('status_id', 1);
+            }])
+            ->get();
+
         return view('client.products-by-category', compact(['products', 'category', 'count']));
     }
 
     public function showProductsByStore(Store $store){
-        $products = Product::where('store_id', $store->id)->get();
+        $products = Product::where('store_id', $store->id)
+            ->where('status_id', 1)
+            ->get();
         return view('client.products-by-stores', compact(['products', 'store']));
     }
 

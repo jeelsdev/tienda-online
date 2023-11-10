@@ -16,8 +16,9 @@ class CreateUnlocksTable extends Migration
         Schema::create('unlocks', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->string('response');
+            $table->string('response')->nullable();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('status_id')->constrained();
             $table->timestamps();
         });
     }

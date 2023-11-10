@@ -52,7 +52,7 @@ class UserBlocked extends Notification
                     ->line('Lo sentimos, has perdido el acceso a nuestra platarforma, ya que has ')
                     ->line("{$this->reason}")
                     ->line('Para poder solicitar una reapertura por favor complete este formulario.')
-                    ->action('solicitar reapertura', url('/'))
+                    ->action('solicitar reapertura', route('unlock.account', ['email'=>$this->user->email]))
                     ->line('Gracias por su atención, que tenga un buen día.');
     }
 

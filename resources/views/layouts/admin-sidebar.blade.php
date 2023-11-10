@@ -111,8 +111,12 @@ class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:fl
             <li class="items-center">
                 <a href="{{ route('request.index') }}"
                     class="{{ setActive('request.index')?'text-blue-500':'' }} hover:text-blue-500 text-xs uppercase py-3 font-bold block">
-                    <i class="fas fa-user-circle  mr-2 text-sm"></i>
-                    Solicitudes
+                    <div class="flex">
+                        <i class="fas fa-user-circle  mr-2 text-sm"></i>
+                        <div>
+                            Solicitudes de desbloqueo
+                        </div>
+                    </div>
                 </a>
             </li>
         </ul>

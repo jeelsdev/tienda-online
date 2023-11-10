@@ -18,6 +18,7 @@ class UnlockFactory extends Factory
             'description'=>$this->faker->text(),
             'response'=>$this->faker->sentence(10),
             'user_id'=>User::role(['staff', 'client'])->inRandomOrder()->first()->id,
+            'status_id'=>$this->faker->randomElement([1, 2]),
         ];
     }
 }

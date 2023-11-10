@@ -64,7 +64,7 @@
         <div class="col-span-1 bg-white px-4 pb-6 shadow rounded overflow-hiddenb hidden md:block">
             <div class="divide-y divide-gray-200 space-y-5">
                 <div>
-                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categories</h3>
+                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categorias</h3>
                     <div class="space-y-2">
                         @foreach ($categories as $category)
                             <div class="flex items-center">

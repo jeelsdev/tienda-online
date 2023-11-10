@@ -47,12 +47,12 @@ class DatabaseSeeder extends Seeder
 
         $userAdmin->assignRole('admin');
 
-        $userStaff = User::factory(3)->create();
+        $userStaff = User::factory(10)->create();
         foreach ($userStaff as $user) {
             $user->assignRole('staff');
         }
 
-        $usersClient = User::factory(3)->create();
+        $usersClient = User::factory(10)->create();
         foreach ($usersClient as $user) {
             $user->assignRole('client');
         }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Unlock;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UnlockController extends Controller
@@ -14,7 +16,9 @@ class UnlockController extends Controller
      */
     public function index()
     {
-        $unlocks = Unlock::with('user')->get();
+        $unlocks = Unlock::with('user')
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
         return view('admin.unlock', compact('unlocks'));
     }
@@ -26,7 +30,7 @@ class UnlockController extends Controller
      */
     public function create()
     {
-        //
+        return view('business.unlock-account');
     }
 
     /**
@@ -37,7 +41,33 @@ class UnlockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email'=>'required|string|email',
+            'description'=>'required|string|max:100'
+        ]);
+
+        $validationEmail = User::where('email', $request->email)->exists();
+
+        if($validationEmail){
+
+            $user = User::where('email', $request->email)->get();
+
+            if($user[0]->status_id == 3){
+                Unlock::create([
+                    'description'=>$request->description,
+                    'user_id'=>$user[0]->id,
+                    'status_id'=>2
+                ]);
+
+                return redirect()->to('/');
+            }
+
+            return redirect()->route('unlock.account', ['email'=>$request->email, 'description'=>$request->description])
+                ->withErrors(['email'=>'Por favor ingrese un correo valido.']);
+        }
+
+        return redirect()->route('unlock.account', ['email'=>$request->email, 'description'=>$request->description])
+            ->withErrors(['email'=>'Por favor, ingresa un correo valido.']);
     }
 
     /**
@@ -48,7 +78,10 @@ class UnlockController extends Controller
      */
     public function show($id)
     {
-        //
+        $unlock = Unlock::with('user')
+            ->where('id', $id)
+            ->get();
+        return view('admin.unlock-validate', compact(['unlock']));
     }
 
     /**
@@ -69,9 +102,27 @@ class UnlockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'status'=>'required'
+        ]);
+
+        if($request->status == 1){
+            $user->update([
+                'status_id'=>2,
+            ]);
+
+            $unlock = Unlock::find($request->unlock);
+            
+            $unlock->update([
+                'status_id'=>1,
+            ]);
+
+        }
+
+        return redirect()->route('request.index');
+
     }
 
     /**

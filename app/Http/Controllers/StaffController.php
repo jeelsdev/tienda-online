@@ -96,10 +96,9 @@ class StaffController extends Controller
     {
 
         $request->validate([
-            'name'=>'required|string|max:30',
-            'surnames'=>'required|string|max:30',
+            'name'=>'required|string|max:50',
+            'surnames'=>'required|string|max:100',
             'phone'=>'required',
-            'direction'=>'required',
         ]);
 
         if($request->status == 3 && $request->status != $user->status_id){
@@ -110,13 +109,16 @@ class StaffController extends Controller
             $user->notify(new UserBlocked($user, $request->reason));
         }
 
-        $address = Address::find($user->address_id);
-        $address->update([
-            'direction'=>$request->direction,
-            'department_id'=>$request->department,
-            'province_id'=>$request->province,
-            'district_id'=>$request->district,
-        ]);
+        if($request->direction){
+            $address = Address::find($user->address_id);
+            $address->update([
+                'direction'=>$request->direction,
+                'department_id'=>$request->department,
+                'province_id'=>$request->province,
+                'district_id'=>$request->district,
+            ]);
+        }
+
         $user->update([
             'name'=>$request->name,
             'surnames'=>$request->surnames,

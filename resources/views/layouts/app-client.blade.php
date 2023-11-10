@@ -172,21 +172,20 @@
                             @endforeach
                         </div>
                     </div>
-
                     <div>
-                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Sobre nosotros</h3>
+                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider"></h3>
                         <div class="mt-4 space-y-4">
-                            <a href="#" class="text-base text-gray-500 hover:text-white block">Pricing</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-white block">Documentation</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-white block">Guides</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-white block">API Status</a>
+                            @foreach ($categories as $category)
+                                <a href="{{ route('show-product-category', ['category'=>$category]) }}"
+                                    class="text-base text-gray-500 hover:text-white block">{{ $category->name }}</a>
+                            @endforeach
                         </div>
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Tiendas</h3>
                         <div class="mt-4 space-y-4">
                             <a href="{{ route('register-staff') }}" class="text-base text-gray-500 hover:text-white block">REGISTRARSE</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-white block">Ver todas</a>
+                            <a href="{{ route('show-all-stores') }}" class="text-base text-gray-500 hover:text-white block">Ver todos</a>
                         </div>
                     </div>
                 </div>

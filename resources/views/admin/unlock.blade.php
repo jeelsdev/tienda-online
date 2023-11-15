@@ -41,7 +41,7 @@
                                         ID
                                     </th>
                                     <th
-                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                         Estado
                                     </th>
                                     <th
@@ -71,16 +71,16 @@
                                             {{ $unlock->id }}
                                         </th>
                                         <th
-                                            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
                                             @if ($unlock->status_id == 1)
                                                 <div
-                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
+                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500">
                                                     <h2 class="text-sm font-normal">Resuelto</h2>
                                                 </div>
                                                 
                                             @else
                                                 <div
-                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-orange-500 bg-orange-100/60">
+                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-orange-500">
                                                     <h2 class="text-sm font-normal">Por resolver</h2>
                                                 </div>
                                                 

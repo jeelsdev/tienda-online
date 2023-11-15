@@ -33,7 +33,7 @@
                                 Email <span class="text-red-500">(*)</span>
                             </label>
                 
-                                <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email')??request('email') }}" required autofocus />
+                                <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email')??$email }}" required autofocus />
                                 @error('email')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror

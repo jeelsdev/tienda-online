@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Business\CheckForUnlock;
 use App\Models\Status;
 use App\Models\Unlock;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UnlockController extends Controller
 {
@@ -28,9 +31,14 @@ class UnlockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($email)
     {
-        return view('business.unlock-account');
+        try {
+            $email = Crypt::decryptString($email);
+        } catch (\Throwable $th) {
+            $email = null;
+        }
+        return view('business.unlock-account',compact('email'));
     }
 
     /**
@@ -46,28 +54,17 @@ class UnlockController extends Controller
             'description'=>'required|string|max:100'
         ]);
 
-        $validationEmail = User::where('email', $request->email)->exists();
+        $checkForUnlock = new CheckForUnlock($request);
 
-        if($validationEmail){
+        if($checkForUnlock->validateEmail()){
 
-            $user = User::where('email', $request->email)->get();
-
-            if($user[0]->status_id == 3){
-                Unlock::create([
-                    'description'=>$request->description,
-                    'user_id'=>$user[0]->id,
-                    'status_id'=>2
-                ]);
-
+            if($checkForUnlock->validateUser()){
                 return redirect()->to('/');
             }
-
-            return redirect()->route('unlock.account', ['email'=>$request->email, 'description'=>$request->description])
-                ->withErrors(['email'=>'Por favor ingrese un correo valido.']);
+            return back()->withErrors(['email'=>'El correo proporcionado, esta activo o ya tiene un seguimiento a cargo.']);
         }
 
-        return redirect()->route('unlock.account', ['email'=>$request->email, 'description'=>$request->description])
-            ->withErrors(['email'=>'Por favor, ingresa un correo valido.']);
+        return back()->withErrors(['email'=>'Por favor, ingrese un correo valido.']);
     }
 
     /**

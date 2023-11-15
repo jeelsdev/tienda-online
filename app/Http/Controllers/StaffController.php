@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserBlockedMailable;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Address;
@@ -12,6 +13,7 @@ use App\Models\Status;
 use App\Notifications\UserBlocked;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
@@ -105,8 +107,8 @@ class StaffController extends Controller
             $request->validate([
                 'reason'=>'required|string|min:5',
             ]);
-
-            $user->notify(new UserBlocked($user, $request->reason));
+            Mail::to(getenv('MAIL_FROM_ADDRESS'))
+                ->send(new UserBlockedMailable($user, $request->reason));
         }
 
         if($request->direction){

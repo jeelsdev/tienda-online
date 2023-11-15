@@ -110,7 +110,7 @@ Route::get('/payment/{product}', [ProductController::class, 'payment'])->name('p
 Route::post('webhooks', WebhooksController::class);
 Route::get('transaction/{transaction}/pay', [TransactionController::class, 'pay'])->name('trasaction.pay');
 
-Route::get('/unlock-account', [UnlockController::class, 'create'])->name('unlock.account');
+Route::get('/unlock-account/{email}', [UnlockController::class, 'create'])->name('unlock.account');
 Route::post('/unlock-account', [UnlockController::class, 'store'])->name('unlock.account.store');
 
 require_once __DIR__.'/auth.php';

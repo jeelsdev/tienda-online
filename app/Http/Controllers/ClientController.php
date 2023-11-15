@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserBlockedMailable;
 use App\Models\User;
 use App\Models\Status;
 use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Notifications\UserBlocked;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -142,7 +144,8 @@ class ClientController extends Controller
             $request->validate([
                 'reason'=>'required|string|max:1000',
             ]);
-            $client->notify(new UserBlocked($client, $request->reason));
+            Mail::to(getenv('MAIL_FROM_ADDRESS'))
+                ->send(new UserBlockedMailable($client, $request->reason));
         }
 
         $client->update([

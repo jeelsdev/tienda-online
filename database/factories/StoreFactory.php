@@ -20,7 +20,7 @@ class StoreFactory extends Factory
             'logo'=>'/storage/images/logos/'.$this->faker->image('public/storage/images/logos/',160,260, null, false),
             'description'=>$this->faker->text(),
             'ruc'=>$this->faker->biasedNumberBetween(3000000000, 100000000000),
-            'user_id'=>User::role('staff')->doesntHave('store')->first()->id,
+            'user_id'=>1,
             'status_id'=>Status::whereIn('id', [1,2])->inRandomOrder()->first()->id,
         ];
     }

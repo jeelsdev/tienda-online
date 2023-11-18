@@ -17,10 +17,10 @@ class StoreFactory extends Factory
     {
         return [
             'name'=>$this->faker->sentence(3),
-            'logo'=>$this->faker->imageUrl(160, 260, 'profile'),
+            'logo'=>'/storage/images/logos/'.$this->faker->image('public/storage/images/logos/',160,260, null, false),
             'description'=>$this->faker->text(),
-            'ruc'=>$this->faker->biasedNumberBetween(30000000, 1000000000),
-            'user_id'=>User::role('staff')->inRandomOrder()->first()->id,
+            'ruc'=>$this->faker->biasedNumberBetween(3000000000, 100000000000),
+            'user_id'=>1,
             'status_id'=>Status::whereIn('id', [1,2])->inRandomOrder()->first()->id,
         ];
     }

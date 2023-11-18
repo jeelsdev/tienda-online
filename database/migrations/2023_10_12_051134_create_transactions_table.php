@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('store_id')->constrained();
             $table->foreignId('product_id')->constrained();
+            $table->foreignId('status_id')->constrained();
             $table->integer('amount');
             $table->float('pay');
             $table->timestamps();

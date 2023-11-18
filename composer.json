@@ -12,6 +12,7 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "mercadopago/dx-php": "^2.6",
         "spatie/laravel-permission": "^5.11"
     },
     "require-dev": {
@@ -27,7 +28,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": ["app/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {

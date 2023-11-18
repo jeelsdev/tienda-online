@@ -11,6 +11,8 @@ use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 use App\Notifications\StoreActivated;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
@@ -21,7 +23,13 @@ class StoreController extends Controller
      */
     public function index()
     {
+        $store = Store::where('user_id', auth()->user()->id)->count();
         
+        if($store == 1){
+            $store = Store::where('user_id',auth()->user()->id)->first();
+            return view('staff.store.index', compact('store'));
+        }
+        return redirect()->route('staff.store.create');
     }
 
 
@@ -32,7 +40,11 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        $store = Store::where('user_id', auth()->user()->id)->count();
+        if($store == 1){
+            return redirect()->route('staff.store');
+        }
+        return view('staff.store.create');
     }
 
     /**
@@ -43,7 +55,20 @@ class StoreController extends Controller
      */
     public function store(StoreStoreRequest $request)
     {
-        //
+        $logo = $request->file('logo')->store('/public/images/logos');
+
+        Store::create([
+            'name'=>$request->name,
+            'ruc'=>$request->ruc,
+            'description'=>$request->description,
+            'user_id'=>auth()->user()->id,
+            'status_id'=>2,
+            'logo'=>Storage::url($logo),
+        ]);
+
+        Session::flash('message', 'Cuenta creada exitosamente');
+
+        return redirect()->route('staff.store');
     }
 
     /**
@@ -80,9 +105,12 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-
         $statuses = Status::whereIn('id', [1, 2])->get();
         return view('admin.edit-store', compact(['store', 'statuses']));
+    }
+
+    public function editByStaff(Store $store){
+        return view('staff.store.edit', compact('store'));
     }
 
     /**
@@ -116,6 +144,35 @@ class StoreController extends Controller
         return redirect()->route('admin.stores.news');
     }
 
+    public function updateByStaff(Request $request, Store $store){
+        $request->validate([
+            'name'=>'required|string|max:100',
+            'ruc'=>'required|numeric|digits:11',
+            'description'=>'required|string|max:255',
+            'logo'=>'image|max:1024',
+        ]);
+
+        if($request->logo){
+            $logo = $request->file('logo')->store('/public/images/logos');
+            $store->update([
+                'name'=>$request->name,
+                'ruc'=>$request->ruc,
+                'description'=>$request->description,
+                'logo'=>Storage::url($logo),
+            ]);
+        }else {
+            $store->update([
+                'name'=>$request->name,
+                'ruc'=>$request->ruc,
+                'description'=>$request->description,
+            ]);
+        }
+
+        Session::flash('message', 'Se actulizo correctamente.');
+
+        return redirect()->route('staff.store');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -136,7 +193,7 @@ class StoreController extends Controller
             })->when(request('search'), function($query){
                 $query->where('name', 'LIKE', '%'.request('search').'%')
                 ->orWhere('ruc', 'LIKE', '%'.request('search').'%');
-            })->orderBy('created_at')
+            })->orderBy('created_at','DESC')
             ->paginate(10);
 
         return view('admin.new-stores', compact('stores'));
@@ -156,4 +213,11 @@ class StoreController extends Controller
         return view('admin.all-stores', compact('stores'));
     }
 
+    public function showAllStores(){
+        $stores = Store::where('status_id', 1)
+            ->inRandomOrder()
+            ->get();
+
+        return view('client.stores', compact(['stores']));
+    }
 }

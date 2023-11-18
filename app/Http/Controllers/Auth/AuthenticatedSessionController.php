@@ -32,6 +32,20 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if(auth()->user()->status_id == 3 || auth()->user()->status_id == 4){
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return back()->withErrors(['email'=>'Cuenta deshabilitada, por favor contactaté con soporte.']);
+        }
+
+        if(auth()->user()->hasRole('client')){
+            return redirect()->route('client.profile');
+        }
+        
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

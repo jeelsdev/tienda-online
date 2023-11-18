@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserBlockedMailable;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Address;
@@ -12,6 +13,8 @@ use App\Models\Status;
 use App\Notifications\UserBlocked;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
@@ -22,6 +25,8 @@ class StaffController extends Controller
      */
     public function index()
     {
+        $user = User::find(auth()->user()->id);
+        return view('staff.profile', compact('user'));
     }
 
     /**
@@ -93,27 +98,29 @@ class StaffController extends Controller
     {
 
         $request->validate([
-            'name'=>'required|string|max:30',
-            'surnames'=>'required|string|max:30',
+            'name'=>'required|string|max:50',
+            'surnames'=>'required|string|max:100',
             'phone'=>'required',
-            'direction'=>'required',
         ]);
 
         if($request->status == 3 && $request->status != $user->status_id){
             $request->validate([
                 'reason'=>'required|string|min:5',
             ]);
-
-            $user->notify(new UserBlocked($user, $request->reason));
+            Mail::to(getenv('MAIL_FROM_ADDRESS'))
+                ->send(new UserBlockedMailable($user, $request->reason));
         }
 
-        $address = Address::find($user->address_id);
-        $address->update([
-            'direction'=>$request->direction,
-            'department_id'=>$request->department,
-            'province_id'=>$request->province,
-            'district_id'=>$request->district,
-        ]);
+        if($request->direction){
+            $address = Address::find($user->address_id);
+            $address->update([
+                'direction'=>$request->direction,
+                'department_id'=>$request->department,
+                'province_id'=>$request->province,
+                'district_id'=>$request->district,
+            ]);
+        }
+
         $user->update([
             'name'=>$request->name,
             'surnames'=>$request->surnames,
@@ -122,6 +129,35 @@ class StaffController extends Controller
         ]);
 
         return redirect()->route('admin.staffs');
+    }
+
+    public function updateProfile(Request $request, User $user){
+        $request->validate([
+            'name'=>'required|string|max:30',
+            'surnames'=>'required|string|max:30',
+            'phone'=>'required|numeric',
+            'birthday'=>'required|date',
+            'profile'=>'image|max:2048',
+        ]);
+
+        if($request->profile){
+            $image =  $request->file('profile')->store('/public/images/profiles');
+            $user->update([
+                'name'=>$request->name,
+                'surnames'=>$request->surnames,
+                'phone'=>$request->phone,
+                'birthday'=>$request->birthday,
+                'profile'=>Storage::url($image),
+            ]);
+        }else{
+            $user->update([
+                'name'=>$request->name,
+                'surnames'=>$request->surnames,
+                'phone'=>$request->phone,
+                'birthday'=>$request->birthday,
+            ]);
+        }
+        return redirect()->route('staff.profile');
     }
 
     /**

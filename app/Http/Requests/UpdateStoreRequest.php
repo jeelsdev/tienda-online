@@ -24,8 +24,9 @@ class UpdateStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string|max:255',
+            'name'=>'required|string|max:50',
             'ruc'=>'required|numeric|digits:11',
+            'description'=>'required|string|max:200',
         ];
     }
 }

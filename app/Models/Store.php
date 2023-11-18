@@ -13,7 +13,9 @@ class Store extends Model
         'name',
         'ruc',
         'description',
-        'status_id'
+        'status_id',
+        'user_id',
+        'logo'
     ];
 
     public function user(){

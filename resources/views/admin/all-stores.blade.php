@@ -85,23 +85,23 @@
                                         <td
                                             class="border-t-0 px-1 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
                                             @if ($store->status_id == 1)
-                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500">
                                                 <h2 class="text-sm font-normal">Activo</h2>
                                             </div>
                                                 
                                             @endif
                                             @if ($store->status_id == 2)
-                                            <div class="inline-flex items-center px-3 py-1 text-orange-500 rounded-full gap-x-2 bg-orange-100/60">
+                                            <div class="inline-flex items-center px-3 py-1 text-orange-500 rounded-full gap-x-2">
                                                 <h2 class="text-sm font-normal">Inactivo</h2>
                                             </div>
                                             @endif
                                             @if ($store->status_id == 3)
-                                            <div class="inline-flex items-center px-3 py-1 text-yellow-500 rounded-full gap-x-2 bg-yellow-100/60">
+                                            <div class="inline-flex items-center px-3 py-1 text-yellow-500 rounded-full gap-x-2">
                                                 <h2 class="text-sm font-normal">Bloqueado</h2>
                                             </div>
                                             @endif
                                             @if ($store->status_id == 4)
-                                            <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60">
+                                            <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2">
                                                 <h2 class="text-sm font-normal">Cerrado</h2>
                                             </div>
                                             @endif

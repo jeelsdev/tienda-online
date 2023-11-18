@@ -15,7 +15,7 @@
                                     <div class="flex justify-between">
 
                                         <input
-                                            class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-2/6"
+                                            class="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-sm focus:outline-none w-2/6"
                                             type="search" name="search" placeholder="Buscar por nombre o ruc">
                                         <select id="default"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/5 p-2.5">
@@ -41,8 +41,8 @@
                                         ID
                                     </th>
                                     <th
-                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                                        Tipo
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        Estado
                                     </th>
                                     <th
                                         class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
@@ -71,11 +71,20 @@
                                             {{ $unlock->id }}
                                         </th>
                                         <th
-                                            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                                            @if ($unlock->status_id == 1)
                                                 <div
-                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
-                                                    <h2 class="text-sm font-normal">cliente</h2>
+                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500">
+                                                    <h2 class="text-sm font-normal">Resuelto</h2>
                                                 </div>
+                                                
+                                            @else
+                                                <div
+                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-orange-500">
+                                                    <h2 class="text-sm font-normal">Por resolver</h2>
+                                                </div>
+                                                
+                                            @endif
                                         </th>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -96,11 +105,12 @@
                                         </td>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                            <a href="#pablo"
-                                                class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                                ver mas
-                                            </a>
-
+                                            @if ($unlock->status_id == 2)
+                                                <a href="{{ route('request.show', ['id'=>$unlock->id]) }}"
+                                                    class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                                    ver mas
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

@@ -23,6 +23,10 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function createStaff(){
+        return view('auth.register-staff');
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -34,16 +38,57 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:100'],
+            'surnames' => ['required', 'string', 'max:200'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'digits:9'],
+            'birthday' => ['required', 'date'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'surnames' => $request->surnames,
             'email' => $request->email,
+            'profile'=>"/images/sin-foto.jpg",
+            'phone' => $request->phone,
+            'birthday' => $request->birthday,
             'password' => Hash::make($request->password),
+            'status_id' => 1,
         ]);
+
+        $user->assignRole('client');
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect()->route('client.profile');
+    }
+
+    public function storeStaff(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'surnames' => ['required', 'string', 'max:200'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'digits:9'],
+            'birthday' => ['required', 'date'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'surnames' => $request->surnames,
+            'email' => $request->email,
+            'profile'=>"/images/sin-foto.jpg",
+            'phone' => $request->phone,
+            'birthday' => $request->birthday,
+            'password' => Hash::make($request->password),
+            'status_id' => 1,
+        ]);
+
+        $user->assignRole('staff');
 
         event(new Registered($user));
 

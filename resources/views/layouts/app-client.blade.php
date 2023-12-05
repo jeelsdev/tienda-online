@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Laravel</title>
 
     <!-- Fonts -->
@@ -49,7 +50,7 @@
                         class="bg-blue-900 border border-blue-800 text-white px-8 rounded-r-md hover:bg-transparent hover:text-blue-900 transition" id="btnSearch">Search</button>
                 </div>
                 <div class="absolute z-40 w-full max-w-xl bg-white mt-4 hidden" id="product_list">
-                    
+
                 </div>
             </div>
 

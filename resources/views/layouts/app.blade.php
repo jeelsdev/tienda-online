@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -30,7 +31,7 @@
                 {{ $slot }}
             </div>
           @endif
-          
+
           @if (auth()->user()->hasRole('staff'))
             @include('layouts.staff-sidebar')
             <div class="relative md:ml-64 bg-blueGray-50">
@@ -44,14 +45,14 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
-  
+
   {{-- Message flash --}}
   <script>
     $(document).ready(function(){
       $('#close-message-flash').on('click', function(){
           $('#message-flash').addClass('hidden');
        });
-      
+
       // sidebar navigation
       $('ul .items-center a').click(function(){
         $('ul .items-center a').removeClass('text-blue-600');

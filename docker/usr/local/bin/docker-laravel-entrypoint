@@ -48,6 +48,7 @@ fi
 php artisan storage:link
 #php artisan migrate:refresh --seed --force
 php artisan migrate:refresh
+npm install
 npm run prod
 
 if [[ "$role" = "app" ]]; then

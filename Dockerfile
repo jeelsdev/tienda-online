@@ -19,6 +19,8 @@ RUN apt-get update \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt-get install -y nodejs npm
+
 # hadolint ignore=DL3059
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     && pecl install --configureoptions='enable-redis-igbinary="yes" enable-redis-lzf="yes" enable-redis-zstd="yes"' igbinary zstd redis \

@@ -19,7 +19,9 @@ RUN apt-get update \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get install -y nodejs npm
+# Instalar Node.js y npm
+RUN apt-get update && \
+    apt-get install nodejs npm -y
 
 # hadolint ignore=DL3059
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \

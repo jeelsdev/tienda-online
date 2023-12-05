@@ -37,6 +37,6 @@ RUN a2enmod rewrite headers \
     && chmod +x /usr/local/bin/docker-laravel-entrypoint
 
 COPY . /var/www/laravel
-RUN composer install --optimize-autoloader --no-dev
+RUN composer install
 
 CMD ["docker-laravel-entrypoint"]

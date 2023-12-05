@@ -46,8 +46,7 @@ if [[ "$DB_CONNECTION" = "sqlite" ]]; then
     chown -R www-data:www-data database/
 fi
 php artisan storage:link
-#php artisan migrate:refresh --seed --force
-php artisan migrate:refresh
+
 npm install
 npm run prod
 
